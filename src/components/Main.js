@@ -1,7 +1,7 @@
 import React from 'react';
 import {Router, Route, browserHistory} from 'react-router';
 
-import {Navbar, Nav, NavItem} from 'react-bootstrap';
+import { Navbar, Nav, NavItem } from 'react-bootstrap';
 
 import UserStore from '../stores/UserStore';
 
@@ -20,7 +20,6 @@ export default class Main extends React.Component {
       username: null
     };
 
-    this.onLoginClicked = this.onLoginClicked.bind(this);
     this._onUserStoreChanged = this._onUserStoreChanged.bind(this);
     this.onMapClicked = this.onMapClicked.bind(this);
     this.onHomeClicked = this.onHomeClicked.bind(this);
@@ -53,12 +52,6 @@ export default class Main extends React.Component {
                  return (<IntakeSurveyPage/>);
                }}
         />
-        <Route path="/login"
-               component={() => {
-                 return (<LoginPage/>);
-               }}
-        />
-
         <Route path="/map"
                component={() => {
                  return (<ShelterMapPage/>);
@@ -82,10 +75,6 @@ export default class Main extends React.Component {
     browserHistory.push("/");
   }
 
-  onLoginClicked() {
-    browserHistory.push("/login");
-  }
-
   onMapClicked() {
     browserHistory.push("/map");
   }
@@ -104,9 +93,7 @@ export default class Main extends React.Component {
             (this.state.username) ?
               <span>{this.state.username}</span>
               :
-              <Nav>
-                <NavItem onClick={this.onLoginClicked}>Login</NavItem>
-              </Nav>
+              <LoginPage />
           }
           <Nav>
             <NavItem onClick={this.onMapClicked}>Map</NavItem>

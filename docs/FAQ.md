@@ -53,7 +53,6 @@ Unfortunately, scripts in package.json can't be commented inline because the JSO
 │   ├── chalkConfig.js        # Centralized configuration for chalk (adds color to console statements)
 │   ├── distServer.js         # Starts webserver and opens final built app that's in dist in your default browser
 │   ├── nodeVersionCheck.js   # **NEEDS DOCUMENTATION**
-│   ├── removeDemo.js         # **NEEDS DOCUMENTATION**
 │   ├── srcServer.js          # Starts dev webserver with hot reloading and opens your app in your default browser
 │   ├── startMessage.js       # **NEEDS DOCUMENTATION**
 │   └── testSetup.js          # Configures mocha

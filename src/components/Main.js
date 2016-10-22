@@ -1,7 +1,7 @@
 import React from 'react';
 import {Router, Route, browserHistory} from 'react-router';
 
-import {Navbar, Nav, NavItem} from 'react-bootstrap';
+import { Navbar, Nav, NavItem } from 'react-bootstrap';
 
 import UserStore from '../stores/UserStore';
 
@@ -12,17 +12,21 @@ import ShelterMapPage from './map/ShelterMapPage';
 import IntakeSurveyPage from './intake-survey/IntakeSurveyPage';
 import CareWorkerHomePage from './CareWorkerHomePage.js';
 
+import UserRoles from '../constants/userRoles';
+
 export default class Main extends React.Component {
 
   constructor(props) {
     super(props);
     this.state = {
-      username: null
+      username: null,
+      userRole: null
     };
 
     this._onUserStoreChanged = this._onUserStoreChanged.bind(this);
     this.onMapClicked = this.onMapClicked.bind(this);
     this.onHomeClicked = this.onHomeClicked.bind(this);
+    this._routeLoggedUser = this._routeLoggeduser.bind(this);
   }
 
   componentDidMount() {
@@ -34,9 +38,27 @@ export default class Main extends React.Component {
   }
 
   _onUserStoreChanged() {
+    const userStoreState = UserStore.getState();
+    const newUserLogged = (userStoreState && userStoreState.username && (userStoreState.username !== this.state.username));
+    if(newUserLogged) {
     this.setState({
-      username: UserStore.getState().username
-    });
+        username: userStoreState.username,
+        userRole: userStoreState.userRole
+      }, this._routeLoggedUser);
+    }
+
+  }
+
+  _routeLoggeduser() {
+    if(this.state.username) {
+      if(this.state.userRole === UserRoles.CLIENT) {
+        browserHistory.push("/map");
+      } else if(this.state.userRole === UserRoles.WORKER) {
+        browserHistory.push("/care");
+      }
+      return;
+    }
+    browserHistory.push("/");
   }
 
   _getInitializedRouter() {
@@ -91,16 +113,18 @@ export default class Main extends React.Component {
             <Navbar.Toggle />
           </Navbar.Header>
           <Navbar.Collapse className="bs-navbar-collapse">
-            {
-              (this.state.username) ?
-                <span>{this.state.username}</span>
-                :
-                <LoginPage />
-            }
-            <Nav>
-              <NavItem onClick={this.onMapClicked}>Map</NavItem>
-            </Nav>
-          </Navbar.Collapse>
+          {
+            (this.state.username) ?
+              <Nav pullRight>
+                <div className="navbar-text">Logged in as {this.state.username}</div> <NavItem onClick={this.onLogoutClicked}>Logout</NavItem>
+              </Nav>
+              :
+              <LoginPage />
+          }
+          <Nav>
+            <NavItem onClick={this.onMapClicked}>Map</NavItem>
+          </Nav>
+            </Navbar.Collapse>
         </Navbar>
         {this.router}
       </div>

@@ -15,7 +15,7 @@ export default class LoginAction {
         type: ActionTypes.LOGIN_REQUEST,
         username: result.name,
         userRole: result.roleName,
-        userOrganization: result.organization
+        organizationName: result.organizationName
       });
     }).catch((error) => {
       LHDispatcher.dispatch({

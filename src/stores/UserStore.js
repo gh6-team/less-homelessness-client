@@ -9,7 +9,7 @@ class UserStore extends BasicFluxStore {
     this.state = {
       username: null,
       userRole: null,
-      userOrganization: null,
+      organizationName: null,
       loading: false
     };
   }
@@ -18,18 +18,23 @@ class UserStore extends BasicFluxStore {
     return this.state;
   }
 
+  handleLoginCompleted(action) {
+      this.state.username = action.username;
+      this.state.userRole = action.userRole;
+    this.state.organizationName = action.organizationName;
+      this.state.loading = false;
+      this.emitChange();
+  }
+
 }
 
 UserStore.dispatchToken = LHDispatcher.register(action => {
   "use strict";
+  console.log("Dispatching action:", action);
   switch(action.type) {
 
     case ACTION_TYPES.LOGIN_REQUEST: {
-      this.state.username = action.username;
-      this.state.userRole = action.userRole;
-      this.state.userOrganization = action.userOrganization;
-      this.state.loading = false;
-      this.emitChange();
+      userStoreInstance.handleLoginCompleted(action);
       break;
     }
 

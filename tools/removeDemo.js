@@ -21,10 +21,6 @@ const pathsToRemove = [
 
 const filesToCreate = [
   {
-    path: './src/components/Main.spec.js',
-    content: '// Must have at least one test file in this directory or Mocha will throw an error.'
-  },
-  {
     path: './src/LHDispatcher.js',
     content: '// Set up your application entry point here...'
   },

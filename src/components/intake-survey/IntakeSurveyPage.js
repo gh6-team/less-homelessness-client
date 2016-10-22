@@ -1,14 +1,18 @@
 import React from 'react';
 import {Tab, Row, Col, Nav, NavItem} from 'react-bootstrap';
+import IntakeSurveyNameForm from './IntakeSurveyNameForm';
 
 export default class IntakeSurveyPage extends React.Component {
 
   constructor(props) {
     super(props);
     this.state = {
-      selectedKey: this.tabKeys.NAME
+      selectedKey: this.tabKeys.NAME,
+      clientInfo: {}
     };
     this.onSelectionChanged = this.onSelectionChanged.bind(this);
+    this.goToNextTab = this.goToNextTab.bind(this);
+    this.onClientInfoChange = this.onClientInfoChange.bind(this);
   }
 
   tabKeys = {
@@ -25,6 +29,18 @@ export default class IntakeSurveyPage extends React.Component {
     });
   }
 
+  onClientInfoChange(clientInfo) {
+    this.setState({
+      clientInfo
+    });
+  }
+
+  goToNextTab() {
+    this.setState({
+      selectedKey: this.state.selectedKey + 1
+    });
+  }
+
   render() {
     return (
       <div>
@@ -33,7 +49,7 @@ export default class IntakeSurveyPage extends React.Component {
         </Row>
         <Tab.Container activeKey={this.state.selectedKey} id="intake-survey" onSelect={this.onSelectionChanged}>
           <Row className="clearfix">
-            <Col sm={4}>
+            <Col sm={4} lg={2} style={{borderRight: "1px grey solid"}}>
               <Nav bsStyle="pills" stacked>
                 <NavItem eventKey={this.tabKeys.NAME}>
                   Name
@@ -52,10 +68,10 @@ export default class IntakeSurveyPage extends React.Component {
                 </NavItem>
               </Nav>
             </Col>
-            <Col sm={8}>
+            <Col sm={8} lg={10}>
               <Tab.Content animation>
                 <Tab.Pane eventKey={this.tabKeys.NAME}>
-                  Tab 1 content
+                 <IntakeSurveyNameForm clientInfo={this.state.clientInfo} goToNextTab={this.goToNextTab} onClientInfoChanged={this.onClientInfoChange}/>
                 </Tab.Pane>
                 <Tab.Pane eventKey={this.tabKeys.CONTACT_INFO}>
                   Tab 1 content

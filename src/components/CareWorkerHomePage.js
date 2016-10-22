@@ -2,6 +2,7 @@ import React from 'react';
 import {Row, Col, Button, ButtonGroup} from "react-bootstrap";
 import {browserHistory} from "react-router";
 import DropdownList from "react-widgets/lib/DropdownList";
+import ClientDetail from "./ClientDetail";
 
 export default class CareWorkerHomePage extends React.Component {
 
@@ -41,6 +42,9 @@ export default class CareWorkerHomePage extends React.Component {
               <Button onClick={this.onIntakeClicked}>Client Search</Button>
               <Button onClick={this.onIntakeClicked}>Find a Shelter Bed</Button>
             </ButtonGroup>
+          </Col>
+          <Col sm={9} xsHidden>
+            <ClientDetail clientId={90077}/>
           </Col>
           <Col xs={2} smHidden mdHidden lgHidden>
             <DropdownList style={style}

@@ -1,17 +1,33 @@
 import React from 'react';
 import InputLabel from "../common/InputLabel";
 import TextInput from "../common/TextInput";
-import {Row} from 'react-bootstrap';
+import {Col, Row} from 'react-bootstrap';
 
 export default class IntakeSurveyNamePage extends React.Component {
 
   constructor(props) {
     super(props);
+
+    this.onFirstNameChanged = this.onFirstNameChanged.bind(this);
+    this.onMiddleNameChanged = this.onMiddleNameChanged.bind(this);
+    this.onLastNameChanged = this.onLastNameChanged.bind(this);
   }
 
-  onNameChanged(value) {
+  onFirstNameChanged(value) {
     let clone = JSON.parse(JSON.stringify(this.props.clientInfo));
-    clone.clientName = value;
+    clone.first_name = value;
+    this.props.onClientInfoChange(clone);
+  }
+
+  onMiddleNameChanged(value) {
+    let clone = JSON.parse(JSON.stringify(this.props.clientInfo));
+    clone.middle_name = value;
+    this.props.onClientInfoChange(clone);
+  }
+
+  onLastNameChanged(value) {
+    let clone = JSON.parse(JSON.stringify(this.props.clientInfo));
+    clone.last_name = value;
     this.props.onClientInfoChange(clone);
   }
 
@@ -19,10 +35,29 @@ export default class IntakeSurveyNamePage extends React.Component {
     return (
       <div>
         <Row>
-          <InputLabel value={"Name:"}/>
+          <Col xshidden sm={4} lg={2}>
+            <InputLabel value={"First Name:"}/>
+          </Col>
+          <Col xshidden sm={4} lg={2}>
+            <InputLabel value={"Middle Name:"}/>
+          </Col>
+          <Col xshidden sm={4} lg={2}>
+            <InputLabel value={"Last Name:"}/>
+          </Col>
         </Row>
         <Row>
-          <TextInput style={{marginLeft: "12px", width: "200px"}} value={this.props.clientInfo.clientName} onChange={this.onNameChanged}/>
+          <Col xs={4} lg={2}>
+            <TextInput style={{marginLeft: "12px", width: "200px"}} value={this.props.clientInfo.first_name}
+                       onChange={this.onFirstNameChanged}/>
+          </Col>
+          <Col xs={4} lg={2}>
+            <TextInput style={{marginLeft: "12px", width: "200px"}} value={this.props.clientInfo.middle_name}
+                       onChange={this.onMiddleNameChanged}/>
+          </Col>
+          <Col xs={4} lg={2}>
+            <TextInput style={{marginLeft: "12px", width: "200px"}} value={this.props.clientInfo.last_name}
+                       onChange={this.onLastNameChanged}/>
+          </Col>
         </Row>
       </div>
     );

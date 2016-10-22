@@ -1,6 +1,7 @@
 import React from 'react';
 import {Tab, Row, Col, Nav, NavItem} from 'react-bootstrap';
 import IntakeSurveyNameForm from './IntakeSurveyNameForm';
+import IntakeSurveyAction from "../../actions/IntakeSurveyAction";
 
 export default class IntakeSurveyPage extends React.Component {
 
@@ -39,6 +40,10 @@ export default class IntakeSurveyPage extends React.Component {
     this.setState({
       selectedKey: this.state.selectedKey + 1
     });
+  }
+
+  onSubmitClient() {
+    IntakeSurveyAction.saveIntakeSurveyData(this.state.clientInfo);
   }
 
   render() {

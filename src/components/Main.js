@@ -1,7 +1,7 @@
 import React from 'react';
 import {Router, Route, browserHistory} from 'react-router';
 
-import { Navbar, Nav, NavItem } from 'react-bootstrap';
+import {Navbar, Nav, NavItem} from 'react-bootstrap';
 
 import UserStore from '../stores/UserStore';
 
@@ -11,7 +11,6 @@ import NotFoundPage from './NotFoundPage';
 import ShelterMapPage from './ShelterMapPage';
 import IntakeSurveyPage from './intake-survey/IntakeSurveyPage';
 import CareWorkerHomePage from './CareWorkerHomePage.js';
-import ClientDetailPage from './ClientDetail.js';
 
 export default class Main extends React.Component {
 
@@ -92,16 +91,16 @@ export default class Main extends React.Component {
             <Navbar.Toggle />
           </Navbar.Header>
           <Navbar.Collapse className="bs-navbar-collapse">
-          {
-            (this.state.username) ?
-              <span>{this.state.username}</span>
-              :
-              <LoginPage />
-          }
-          <Nav>
-            <NavItem onClick={this.onMapClicked}>Map</NavItem>
-          </Nav>
-            </Navbar.Collapse>
+            {
+              (this.state.username) ?
+                <span>{this.state.username}</span>
+                :
+                <LoginPage />
+            }
+            <Nav>
+              <NavItem onClick={this.onMapClicked}>Map</NavItem>
+            </Nav>
+          </Navbar.Collapse>
         </Navbar>
         {this.router}
       </div>

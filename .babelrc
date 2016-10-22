@@ -1,0 +1,21 @@
+{
+  "presets": [
+    "latest",
+    "react",
+    "stage-1"
+  ],
+  "env": {
+    "development": {
+      "presets": [
+        "react-hmre"
+      ]
+    },
+    "production": {
+      "plugins": [
+        ["babel-plugin-transform-builtin-extend", {
+          "globals": ["Error"]
+        }]
+      ]
+    }
+  }
+}

@@ -10,6 +10,7 @@ import LoginPage from './LoginPage';
 import NotFoundPage from './NotFoundPage';
 import ShelterMapPage from './ShelterMapPage';
 import IntakeSurveyPage from './intake-survey/IntakeSurveyPage';
+import CareWorkerHomePage from './CareWorkerHomePage.js';
 
 export default class Main extends React.Component {
 
@@ -59,6 +60,11 @@ export default class Main extends React.Component {
         <Route path="/map"
                componet={() => {
                  return (<ShelterMapPage/>);
+               }}
+        />
+        <Route path="/care"
+               componet={() => {
+                 return (<CareWorkerHomePage/>);
                }}
         />
         <Route path="*"

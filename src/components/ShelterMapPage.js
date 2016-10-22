@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default class IntakeSurveyPage extends React.Component {
+export default class ShelterMapPage extends React.Component {
 
   constructor(props) {
     super(props);
@@ -8,7 +8,7 @@ export default class IntakeSurveyPage extends React.Component {
 
   render() {
     return (<div>
-      <h1>Less Homelessness - Intake Survey</h1>
+      <h1>Hello World</h1>
     </div>);
   }
 

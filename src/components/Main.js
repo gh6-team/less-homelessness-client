@@ -1,13 +1,14 @@
 import React from 'react';
 import {Router, Route, browserHistory} from 'react-router';
 
-import { Navbar, Nav, NavItem } from 'react-bootstrap';
+import {Navbar, Nav, NavItem} from 'react-bootstrap';
 
 import UserStore from '../stores/UserStore';
 
 import HomePage from './HomePage';
 import LoginPage from './LoginPage';
 import NotFoundPage from './NotFoundPage';
+import ShelterMapPage from './ShelterMapPage';
 import IntakeSurveyPage from './intake-survey/IntakeSurveyPage';
 
 export default class Main extends React.Component {
@@ -20,11 +21,13 @@ export default class Main extends React.Component {
 
     this.onLoginClicked = this.onLoginClicked.bind(this);
     this._onUserStoreChanged = this._onUserStoreChanged.bind(this);
+    this.onMapClicked = this.onMapClicked.bind(this);
   }
 
   componentDidMount() {
     UserStore.addChangeListener(this._onUserStoreChanged);
   }
+
   componentWillUnmount() {
     UserStore.removeChangeListener(this._onUserStoreChanged);
   }
@@ -39,16 +42,29 @@ export default class Main extends React.Component {
     return (
       <Router history={browserHistory}>
         <Route path="/"
-               component={() => {return (<HomePage/>);}}
+               component={() => {
+                 return (<HomePage/>);
+               }}
         />
         <Route path="/login"
-               component={() => {return (<LoginPage/>);}}
+               component={() => {
+                 return (<LoginPage/>);
+               }}
         />
         <Route path="/intake"
-               componet={() => {return (<IntakeSurveyPage/>);}}
+               componet={() => {
+                 return (<IntakeSurveyPage/>);
+               }}
+        />
+        <Route path="/map"
+               componet={() => {
+                 return (<ShelterMapPage/>);
+               }}
         />
         <Route path="*"
-               component={() => {return (<NotFoundPage/>);}}
+               component={() => {
+                 return (<NotFoundPage/>);
+               }}
         />
       </Router>
     );
@@ -58,16 +74,20 @@ export default class Main extends React.Component {
     browserHistory.push("/login");
   }
 
+  onMapClicked() {
+    browserHistory.push("/map");
+  }
+
   render() {
-    if(!this.router) {
+    if (!this.router) {
       this.router = this._getInitializedRouter();
     }
     return (
       <div style={{height: "100%", width: "100%", backgroundColor: "#dad8d8"}}>
-        <Navbar staticTop fluid inverse >
-            <Navbar.Header>
-              <Navbar.Brand>-HL</Navbar.Brand>
-            </Navbar.Header>
+        <Navbar staticTop fluid inverse>
+          <Navbar.Header>
+            <Navbar.Brand>-HL</Navbar.Brand>
+          </Navbar.Header>
           {
             (this.state.username) ?
               <span>{this.state.username}</span>
@@ -76,12 +96,14 @@ export default class Main extends React.Component {
                 <NavItem onClick={this.onLoginClicked}>Login</NavItem>
               </Nav>
           }
-          </Navbar>
-          {this.router}
+          <Nav>
+            <NavItem onClick={this.onMapClicked}>Map</NavItem>
+          </Nav>
+        </Navbar>
+        {this.router}
       </div>
     );
   }
-
 
 
 }

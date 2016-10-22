@@ -6,6 +6,7 @@ import { Navbar, Nav, NavItem, Grid, Row, Col } from 'react-bootstrap';
 import HomePage from './HomePage';
 import LoginPage from './LoginPage';
 import NotFoundPage from './NotFoundPage';
+import IntakeSurveyPage from './intake-survey/IntakeSurveyPage';
 
 export default class Main extends React.Component {
 
@@ -27,6 +28,9 @@ export default class Main extends React.Component {
         />
         <Route path="*"
                component={() => {return (<NotFoundPage/>);}}
+        />
+        <Route path="/intake"
+               componet={() => {return (<IntakeSurveyPage/>);}}
         />
       </Router>
     );
@@ -55,9 +59,9 @@ export default class Main extends React.Component {
         <Row>
           <Col xs={12}>
             {this.router}
-            </Col>
+          </Col>
         </Row>
-        </Grid>
+      </Grid>
     </div>);
   }
 

@@ -22,6 +22,7 @@ export default class Main extends React.Component {
     this.onLoginClicked = this.onLoginClicked.bind(this);
     this._onUserStoreChanged = this._onUserStoreChanged.bind(this);
     this.onMapClicked = this.onMapClicked.bind(this);
+    this.onHomeClicked = this.onHomeClicked.bind(this);
   }
 
   componentDidMount() {
@@ -46,18 +47,19 @@ export default class Main extends React.Component {
                  return (<HomePage/>);
                }}
         />
+        <Route path="/intake"
+               component={() => {
+                 return (<IntakeSurveyPage/>);
+               }}
+        />
         <Route path="/login"
                component={() => {
                  return (<LoginPage/>);
                }}
         />
-        <Route path="/intake"
-               componet={() => {
-                 return (<IntakeSurveyPage/>);
-               }}
-        />
+
         <Route path="/map"
-               componet={() => {
+               component={() => {
                  return (<ShelterMapPage/>);
                }}
         />
@@ -68,6 +70,10 @@ export default class Main extends React.Component {
         />
       </Router>
     );
+  }
+
+  onHomeClicked() {
+    browserHistory.push("/");
   }
 
   onLoginClicked() {
@@ -86,7 +92,7 @@ export default class Main extends React.Component {
       <div style={{height: "100%", width: "100%", backgroundColor: "#dad8d8"}}>
         <Navbar staticTop fluid inverse>
           <Navbar.Header>
-            <Navbar.Brand>-HL</Navbar.Brand>
+            <Navbar.Brand onClick={this.onHomeClicked}>-HL</Navbar.Brand>
           </Navbar.Header>
           {
             (this.state.username) ?

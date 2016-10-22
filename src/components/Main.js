@@ -93,7 +93,9 @@ export default class Main extends React.Component {
         <Navbar staticTop fluid inverse>
           <Navbar.Header>
             <Navbar.Brand onClick={this.onHomeClicked}>-HL</Navbar.Brand>
+            <Navbar.Toggle />
           </Navbar.Header>
+          <Navbar.Collapse className="bs-navbar-collapse">
           {
             (this.state.username) ?
               <span>{this.state.username}</span>
@@ -105,6 +107,7 @@ export default class Main extends React.Component {
           <Nav>
             <NavItem onClick={this.onMapClicked}>Map</NavItem>
           </Nav>
+            </Navbar.Collapse>
         </Navbar>
         {this.router}
       </div>

@@ -5,8 +5,6 @@ export default class InputLabel extends React.Component {
   constructor(props) {
     super(props);
   }
-  componentWillReceiveProps(nextProps) {
-  }
   render() {
     const style = {
       height: CommonStyling.InputFieldHeight,

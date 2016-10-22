@@ -30,11 +30,13 @@
   "license": "MIT",
   "dependencies": {
     "flux": "3.1.0",
+    "google-map-react": "^0.20.1",
     "moment": "2.15.1",
     "object-assign": "4.1.0",
     "react": "15.3.1",
     "react-bootstrap": "0.30.5",
     "react-dom": "15.3.1",
+    "react-pure-render": "^1.0.2",
     "react-redux": "4.4.5",
     "react-router": "2.7.0",
     "react-router-redux": "4.0.5",

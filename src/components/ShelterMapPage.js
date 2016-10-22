@@ -8,6 +8,13 @@ export default class ShelterMapPage extends Component {
   static defaultProps = {
     center: {lat: 38.632746, lng: -90.227955},
     zoom: 10,
+    greatPlaces: [
+      {id: '2', lat: 38.59729089, lng: -90.54189364},
+      {id: '3', lat: 38.54256229, lng: -90.28909176},
+      {id: '7', lat: 38.74151895, lng: -90.22576437},
+      {id: '9', lat: 38.70896713, lng: -90.31745003},
+      {id: '10', lat: 38.71566804, lng: -90.32623591},
+    ]
   };
 
   shouldComponentUpdate = shouldPureComponentUpdate;
@@ -16,12 +23,22 @@ export default class ShelterMapPage extends Component {
     super(props);
   }
 
+  renderChildren() {
+    const places = this.props.greatPlaces
+      .map(place => {
+        const {id, ...coords} = place;
+        return (<MyGreatPlace key={id} text={id} {...coords} />);
+      });
+
+    return places;
+  }
+
   render() {
     return (
       <GoogleMap
         defaultCenter={this.props.center}
         defaultZoom={this.props.zoom}>
-        <MyGreatPlace lat={38.632} lng={-90.227} text={'7'} />
+        {this.renderChildren()}
       </GoogleMap>
     );
   }

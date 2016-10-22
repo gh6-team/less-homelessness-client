@@ -24,13 +24,11 @@ export default class ShelterMapPage extends Component {
   shouldComponentUpdate = shouldPureComponentUpdate;
 
   renderChildren() {
-    const places = this.props.greatPlaces
+    return this.props.greatPlaces
       .map(place => {
         const {id, ...coords} = place;
         return (<MyGreatPlace key={id} text={id} {...coords} />);
       });
-
-    return places;
   }
 
   render() {

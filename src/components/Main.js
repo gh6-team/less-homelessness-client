@@ -8,7 +8,7 @@ import UserStore from '../stores/UserStore';
 import HomePage from './HomePage';
 import LoginPage from './LoginPage';
 import NotFoundPage from './NotFoundPage';
-import ShelterMapPage from './ShelterMapPage';
+import ShelterMapPage from './map/ShelterMapPage';
 import IntakeSurveyPage from './intake-survey/IntakeSurveyPage';
 import CareWorkerHomePage from './CareWorkerHomePage.js';
 

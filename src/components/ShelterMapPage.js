@@ -1,4 +1,4 @@
-import React, {PropTypes, Component} from 'react';
+import React, {Component} from 'react';
 import shouldPureComponentUpdate from 'react-pure-render/function';
 
 import GoogleMap from 'google-map-react';
@@ -10,11 +10,11 @@ export default class ShelterMapPage extends Component {
     zoom: 10,
   };
 
-  shouldComponentUpdate = shouldPureComponentUpdate;
-
   constructor(props) {
     super(props);
   }
+
+  shouldComponentUpdate = shouldPureComponentUpdate;
 
   render() {
     return (

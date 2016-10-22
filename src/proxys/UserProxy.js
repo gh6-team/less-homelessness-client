@@ -1,6 +1,6 @@
 import WebProxy from "./WebProxy";
 
-import UnauthenticatedError from "../errors/UnauthenticatedError"
+import UnauthenticatedError from "../errors/UnauthenticatedError";
 
 class UserProxy {
 

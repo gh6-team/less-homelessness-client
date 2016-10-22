@@ -1,7 +1,7 @@
 import React from 'react';
-import {Router, Route} from 'react-router';
+import {Router, Route, browserHistory} from 'react-router';
 
-import { Navbar, Nav, NavItem, Grid, Row, Col } from 'react-bootstrap';
+import { Navbar, Nav, NavItem } from 'react-bootstrap';
 
 import HomePage from './HomePage';
 import LoginPage from './LoginPage';
@@ -15,54 +15,55 @@ export default class Main extends React.Component {
     this.state = {
       loggedUser: null
     };
+
+    this.onLoginClicked = this.onLoginClicked.bind(this);
   }
 
   _getInitializedRouter() {
     return (
-      <Router>
+      <Router history={browserHistory}>
         <Route path="/"
                component={() => {return (<HomePage/>);}}
         />
         <Route path="/login"
                component={() => {return (<LoginPage/>);}}
         />
-        <Route path="*"
-               component={() => {return (<NotFoundPage/>);}}
-        />
         <Route path="/intake"
                componet={() => {return (<IntakeSurveyPage/>);}}
         />
+        <Route path="*"
+               component={() => {return (<NotFoundPage/>);}}
+        />
       </Router>
     );
+  }
+
+  onLoginClicked() {
+    browserHistory.push("/login");
   }
 
   render() {
     if(!this.router) {
       this.router = this._getInitializedRouter();
     }
-    return (<div>
-      <Navbar staticTop fluid inverse >
-          <Navbar.Header>
-            <Navbar.Brand>-HL</Navbar.Brand>
-          </Navbar.Header>
-        {
-          (this.state.loggedUser) ?
-            <span>{this.state.loggedUser}</span>
-            :
-            <Nav>
-              <NavItem href="/#/login">Login</NavItem>
-            </Nav>
-        }
-
-        </Navbar>
-      <Grid>
-        <Row>
-          <Col xs={12}>
-            {this.router}
-          </Col>
-        </Row>
-      </Grid>
-    </div>);
+    return (
+      <div style={{height: "100%", width: "100%", backgroundColor: "#dad8d8"}}>
+        <Navbar staticTop fluid inverse >
+            <Navbar.Header>
+              <Navbar.Brand>-HL</Navbar.Brand>
+            </Navbar.Header>
+          {
+            (this.state.loggedUser) ?
+              <span>{this.state.loggedUser}</span>
+              :
+              <Nav>
+                <NavItem onClick={this.onLoginClicked}>Login</NavItem>
+              </Nav>
+          }
+          </Navbar>
+          {this.router}
+      </div>
+    );
   }
 
 

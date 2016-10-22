@@ -3,6 +3,8 @@ import {Router, Route, browserHistory} from 'react-router';
 
 import { Navbar, Nav, NavItem } from 'react-bootstrap';
 
+import UserStore from '../stores/UserStore';
+
 import HomePage from './HomePage';
 import LoginPage from './LoginPage';
 import NotFoundPage from './NotFoundPage';
@@ -13,10 +15,24 @@ export default class Main extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      loggedUser: null
+      username: null
     };
 
     this.onLoginClicked = this.onLoginClicked.bind(this);
+    this._onUserStoreChanged = this._onUserStoreChanged.bind(this);
+  }
+
+  componentDidMount() {
+    UserStore.addChangeListener(this._onUserStoreChanged);
+  }
+  componentWillUnmount() {
+    UserStore.removeChangeListener(this._onUserStoreChanged);
+  }
+
+  _onUserStoreChanged() {
+    this.setState({
+      username: UserStore.getState().username
+    });
   }
 
   _getInitializedRouter() {
@@ -53,8 +69,8 @@ export default class Main extends React.Component {
               <Navbar.Brand>-HL</Navbar.Brand>
             </Navbar.Header>
           {
-            (this.state.loggedUser) ?
-              <span>{this.state.loggedUser}</span>
+            (this.state.username) ?
+              <span>{this.state.username}</span>
               :
               <Nav>
                 <NavItem onClick={this.onLoginClicked}>Login</NavItem>

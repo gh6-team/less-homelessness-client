@@ -5,9 +5,8 @@ export default class TextInput extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      value: this.props.value
+      value: (this.props.value) ? this.props.value : ""
     };
-    this._handleChange.bind(this);
   }
 
   _handleChange(event) {
@@ -16,22 +15,36 @@ export default class TextInput extends React.Component {
     this.setState({
       value: newValue
     });
-    if(typeof this.props.onChange === "function") {
+    if (typeof this.props.onChange === "function") {
       this.props.onChange(newValue);
     }
   }
 
   render() {
-    return (<input type={this.props.type}
-           autoComplete="false"
-           disabled={this.props.disabled}
-           onBlur={this.props.onBlur}
-           onChange={this._handleChange.bind(this)}
-           onKeyUp={this.props.onKeyUp}
-           onKeyPress={this.props.onKeyPress}
-           style={this.props.style}
-           value={this.state.value}
-           placeholder={this.props.placeholder} />);
+    const inputStyle = {padding:"5px"};
+    const errorStyle = (this.props.error) ? {border:"1px solid red"} : {};
+    const appliedStyle = Object.assign(inputStyle, this.props.style, errorStyle);
+    return (
+      <span>
+        <input type={this.props.type}
+             autoComplete="false"
+             disabled={this.props.disabled}
+             onBlur={this.props.onBlur}
+             onChange={this._handleChange.bind(this)}
+             onKeyUp={this.props.onKeyUp}
+             onKeyPress={this.props.onKeyPress}
+             style={appliedStyle}
+             value={this.state.value}
+             placeholder={this.props.placeholder}
+        />
+        {
+          (this.props.error) ?
+            <div style={{color:"red"}}>{this.props.error}</div>
+            :
+            null
+        }
+        </span>
+    );
   }
 
 }
@@ -46,7 +59,8 @@ TextInput.propTypes  = {
   onKeyPress: PropTypes.func,
   style: PropTypes.object,
   value: PropTypes.string,
-  placeholder: PropTypes.string
+  placeholder: PropTypes.string,
+  error: PropTypes.string
 };
 
 TextInput.defaultProps = {
@@ -59,5 +73,6 @@ TextInput.defaultProps = {
   onKeyPress: null,
   style: null,
   value: "",
-  placeholder: null
+  placeholder: null,
+  error: null
 };

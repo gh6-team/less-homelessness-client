@@ -2,7 +2,7 @@
 import "babel-polyfill";
 import React from 'react';
 import { render } from 'react-dom';
-// import ShelterStore from './stores/ShelterStore';
+// import UserStore from './stores/UserStore';
 require('./favicon.ico');
 import './styles/stylesheets/styles.scss';
 import 'react-widgets/lib/less/react-widgets.less';

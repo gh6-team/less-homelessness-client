@@ -1,74 +1,84 @@
- import React from 'react';
- import {Row, Col} from 'react-bootstrap';
+import React from 'react';
+import {Row, Col, Button} from 'react-bootstrap';
 
- import TextInput from './common/TextInput';
+import TextInput from './common/TextInput';
 
- export default class LoginPage extends React.Component {
+import LoginAction from '../actions/LoginAction';
 
-   constructor(props) {
-     super(props);
-     this.state = {
-       username: null,
-       password: null
-     };
-     this.onUsernameChanged.bind(this);
-     this.onPasswordChanged.bind(this);
-   }
+export default class LoginPage extends React.Component {
 
-   onUsernameChanged(event) {
-     event.stopPropagation();
-     let newValue = event.target.value;
-     this.setState({
-       username: newValue
-     });
-   }
+  constructor(props) {
+    super(props);
+    this.state = {
+      userId: null,
+      password: null
+    };
+    this.onUserIdChanged = this.onUserIdChanged.bind(this);
+    this.onPasswordChanged = this.onPasswordChanged.bind(this);
+    this.onLoginSubmitClick = this.onLoginSubmitClick.bind(this);
+  }
 
-   onPasswordChanged(event) {
-     event.stopPropagation();
-     let newValue = event.target.value;
-     this.setState({
-       password: newValue
-     });
-   }
+  onUserIdChanged(value) {
+    this.setState({
+      userId: value
+    });
+  }
 
-   render() {
-     let loginRowStyle = {padding:"5px"};
-     return (<div>
-       <h1>Login to your account</h1>
-       <Row>
-         <Col xs={12}>
+  onPasswordChanged(value) {
+    this.setState({
+      password: value
+    });
+  }
 
-           <Row style={loginRowStyle}>
-           <Col xs={12}>
-             <h3>Already a member? Log in with your existing account:</h3>
-           </Col>
-             </Row>
+  onLoginSubmitClick() {
+    let userCredentials = {
+      userId: this.state.userId,
+      password: this.state.password
+    };
+    LoginAction.performLogin(userCredentials);
+  }
 
-           <Row style={loginRowStyle}>
-             <Col xs={6}>
-               Username:
-             </Col>
-           <Col xs={6}>
-             <TextInput type="text" value={this.state.username} onChange={this.onUsernameChanged}/>
-           </Col>
-             </Row>
+  render() {
+    let loginRowStyle = {padding: "5px"};
+    return (<div>
+      <h1>Login to your account</h1>
+      <Row>
+        <Col xs={12}>
 
-           <Row style={loginRowStyle}>
-             <Col xs={6}>
-               Password
-             </Col>
-           <Col xs={6}>
-             <TextInput type="password" value={this.state.password} onChange={this.onPasswordChanged}/>
-           </Col>
-             </Row>
+          <Row style={loginRowStyle}>
+            <Col xs={12}>
+              <h3>Already a member? Log in with your existing account:</h3>
+            </Col>
+          </Row>
 
-           </Col>
+          <Row style={loginRowStyle}>
+            <Col xs={6}>
+              Username:
+            </Col>
+            <Col xs={6}>
+              <TextInput type="text" value={this.state.userId} onChange={this.onUserIdChanged}/>
+            </Col>
+          </Row>
 
+          <Row style={loginRowStyle}>
+            <Col xs={6}>
+              Password
+            </Col>
+            <Col xs={6}>
+              <TextInput type="password" value={this.state.password} onChange={this.onPasswordChanged}/>
+            </Col>
+          </Row>
 
+          <Row style={loginRowStyle}>
+            <Col xs={12}>
+              <Button bsStyle="success" onClick={this.onLoginSubmitClick}>Login</Button>
+            </Col>
+          </Row>
 
+        </Col>
 
-       </Row>
-     </div>);
-   }
+      </Row>
+    </div>);
+  }
 
- }
+}

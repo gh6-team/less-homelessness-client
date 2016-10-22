@@ -1,0 +1,63 @@
+import React, {PropTypes} from 'react';
+
+export default class TextInput extends React.Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      value: this.props.value
+    };
+    this._handleChange.bind(this);
+  }
+
+  _handleChange(event) {
+    event.stopPropagation();
+    const newValue = event.target.value;
+    this.setState({
+      value: newValue
+    });
+    if(typeof this.props.onChange === "function") {
+      this.props.onChange(newValue);
+    }
+  }
+
+  render() {
+    return (<input type={this.props.type}
+           autoComplete="false"
+           disabled={this.props.disabled}
+           onBlur={this.props.onBlur}
+           onChange={this._handleChange.bind(this)}
+           onKeyUp={this.props.onKeyUp}
+           onKeyPress={this.props.onKeyPress}
+           style={this.props.style}
+           value={this.state.value}
+           placeholder={this.props.placeholder} />);
+  }
+
+}
+
+TextInput.propTypes  = {
+  type: PropTypes.string,
+  autoComplete: PropTypes.bool,
+  disabled: PropTypes.bool,
+  onBlur: PropTypes.func,
+  onChange: PropTypes.func,
+  onKeyUp: PropTypes.func,
+  onKeyPress: PropTypes.func,
+  style: PropTypes.object,
+  value: PropTypes.string,
+  placeholder: PropTypes.string
+};
+
+TextInput.defaultProps = {
+  type: "text",
+  autoComplete: false,
+  disabled: false,
+  onBlur: null,
+  onChange: null,
+  onKeyUp: null,
+  onKeyPress: null,
+  style: null,
+  value: "",
+  placeholder: null
+};

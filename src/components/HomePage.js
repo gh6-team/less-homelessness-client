@@ -28,7 +28,7 @@ export default class HomePage extends React.Component {
     return (
       <div style={background_style}>
         <Row style={{marginLeft: "15px"}}>
-          <h1 style={{}}>Less Homelessness</h1>
+          <h1 style={{color: "green"}}>Less Homelessness</h1>
           <h4>Empowering people to combat chronic homelessness...</h4>
         </Row>
         <Panel style={{borderWidth:"2px", backgroundColor: "rgba(255, 255, 255, 0.87)", marginTop: "20px", marginLeft: "auto", marginRight: "auto", width: "50%"}}>

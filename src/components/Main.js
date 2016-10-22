@@ -11,6 +11,7 @@ import NotFoundPage from './NotFoundPage';
 import ShelterMapPage from './ShelterMapPage';
 import IntakeSurveyPage from './intake-survey/IntakeSurveyPage';
 import CareWorkerHomePage from './CareWorkerHomePage.js';
+import ClientDetailPage from './ClientDetail.js';
 
 export default class Main extends React.Component {
 

@@ -10,7 +10,6 @@ export default class TextInput extends React.Component {
   }
 
   _handleChange(event) {
-    event.stopPropagation();
     const newValue = event.target.value;
     this.setState({
       value: newValue

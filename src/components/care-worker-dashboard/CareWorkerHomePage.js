@@ -1,7 +1,7 @@
 import React from 'react';
 import {Tab, Row, Col, Nav, NavItem} from 'react-bootstrap';
 import {browserHistory} from 'react-router';
-// import ClientList from '../client-details/ClientListPage';
+import ClientList from '../client-details/ClientListPage';
 import ClientDetails from '../client-details/ClientDetailPage';
 import IntakeSurvey from "../intake-survey/IntakeSurveyPage";
 import Services from "./ServicesPage";
@@ -12,9 +12,12 @@ export default class IntakeSurveyPage extends React.Component {
     super(props);
     this.state = {
       selectedKey: this.tabKeys.NAME,
+      selectedClientId: null,
       clientInfo: {}
     };
     this.onSelectionChanged = this.onSelectionChanged.bind(this);
+    this.handleClientSelected = this.handleClientSelected.bind(this);
+    this.handleClientDeselected = this.handleClientDeselected.bind(this);
   }
 
   tabKeys = {
@@ -28,14 +31,31 @@ export default class IntakeSurveyPage extends React.Component {
 
   onSelectionChanged(selectedKey) {
     this.setState({
-      selectedKey
+      selectedKey,
+      selectedClientId: null
     });
     switch (selectedKey) {
       case "FIND_A_BED":
         browserHistory.push("/map");
             break;
-
+      case "CLIENT_SEARCH":
+        this.handleClientDeselected();
+        break;
     }
+  }
+
+  handleClientSelected(clientId) {
+    if (clientId !== this.state.selectedClientId) {
+      this.setState({
+        selectedClientId: clientId
+      });
+    }
+  }
+
+  handleClientDeselected() {
+    this.setState({
+      selectedClientId: null
+    });
   }
 
   render() {
@@ -71,7 +91,12 @@ export default class IntakeSurveyPage extends React.Component {
             <Col xs={9} lg={10}>
               <Tab.Content animation>
                 <Tab.Pane eventKey={this.tabKeys.CLIENT_SEARCH}>
-                  <ClientDetails clientId={90077}/>
+                  {
+                    (this.state.selectedClientId) ?
+                      <ClientDetails clientId={this.state.selectedClientId} onClientDeselected={this.handleClientDeselected} />
+                      :
+                      <ClientList onClientSelected={this.handleClientSelected}/>
+                  }
                 </Tab.Pane>
                 <Tab.Pane eventKey={this.tabKeys.BASIC_INTAKE}>
                   <div style={{paddingTop:"20px"}}>

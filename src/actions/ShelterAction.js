@@ -35,4 +35,18 @@ export default class ShelterAction {
     });
   }
 
+  static assignBed(shelterId, bed) {
+    ShelterProxy.assignBed(shelterId, bed).then((result) => {
+      LHDispatcher.dispatch({
+        type: ActionTypes.BED_ASSIGNMENT_REQUEST,
+        assignedBed: result.bed_name,
+      });
+    }).catch((error) => {
+      LHDispatcher.dispatch({
+        type: ActionTypes.API_REQUEST_FAILED,
+        subType: ActionTypes.BED_ASSIGNMENT_REQUEST,
+        error: error
+      });
+    });
+  }
 }

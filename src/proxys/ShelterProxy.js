@@ -30,6 +30,11 @@ class ShelterProxy {
     return WebProxy.send(request).then(this._handleJSONResponse);
   }
 
+  assignBed(shelterId, bed) {
+    let request = WebProxy.buildPostRequest(this.shelterURI + "/" + shelterId + "/bed_assignments");
+    return WebProxy.send(request, JSON.stringify(bed)).then(this._handleJSONResponse);
+  }
+
 }
 
 const shelterProxyInstance = new ShelterProxy();

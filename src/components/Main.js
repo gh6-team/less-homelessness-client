@@ -98,7 +98,7 @@ export default class Main extends React.Component {
                }}
         />
         <Route path="/care"
-               componet={() => {
+               component={() => {
                  return (<CareWorkerHomePage/>);
                }}
         />

@@ -19,10 +19,8 @@ export default class ClientListPage extends React.Component {
     ClientStore.addChangeListener(this.handleClientChange);
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (this.props.search !== nextProps.search) {
-      ClientAction.fetchClientList();
-    }
+  componentWillReceiveProps() {
+    ClientAction.fetchClientList();
   }
 
   componentWillUnmount() {

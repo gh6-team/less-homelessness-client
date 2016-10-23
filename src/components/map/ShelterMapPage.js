@@ -6,9 +6,15 @@ import GoogleMap from 'google-map-react';
 import MyGreatPlace from './my_great_place.js';
 
 export default class ShelterMapPage extends React.Component {
+
   static defaultProps = {
     center: {lat: 38.632746, lng: -90.227955},
-    zoom: 10,
+    zoom: 10
+  };
+
+  static propTypes = {
+    center: React.PropTypes.object,
+    zoom: React.PropTypes.number
   };
 
   constructor(props) {
@@ -43,7 +49,7 @@ export default class ShelterMapPage extends React.Component {
     if (this.state.shelters == null) return;
 
     const rows = [];
-    for (var i = 0; i < this.state.shelters.length; i++) {
+    for (let i = 0; i < this.state.shelters.length; i++) {
       const shelter = this.state.shelters[i];
       const count = this.state.availableBeds[i];
       const {id, location, ...other} = shelter;

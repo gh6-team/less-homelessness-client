@@ -2,7 +2,7 @@ import React from 'react';
 import {Row, Col, Table, Button, ButtonGroup} from "react-bootstrap";
 import ShelterStore from "../../stores/ShelterStore";
 import ShelterAction from "../../actions/ShelterAction";
-import NeedsCategories from "../../constants/Needs"
+import NeedsCategories from "../../constants/Needs";
 
 export default class ServicesPage extends React.Component {
 
@@ -27,7 +27,6 @@ export default class ServicesPage extends React.Component {
   handleShelterChange() {
     this.setState({shelters: ShelterStore.getState().shelters, availableBeds: ShelterStore.getState().availableBeds});
   }
-
 
   render() {
     return (
@@ -54,6 +53,7 @@ export default class ServicesPage extends React.Component {
             </tbody>
           </Table>
         </Col>
-      </Row>)
+      </Row>
+    );
   }
 }

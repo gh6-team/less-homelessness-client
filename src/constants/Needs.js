@@ -44,3 +44,4 @@ const NeedCategories = [
     key: "clothing_or_food"
   }
 ];
+export default NeedCategories;

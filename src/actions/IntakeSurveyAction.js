@@ -1,10 +1,10 @@
-import LHDispatcher from '../dispatchers/LHDispatcher';
-import ActionTypes from '../constants/actionTypes';
+//import LHDispatcher from '../dispatchers/LHDispatcher';
+//import ActionTypes from '../constants/actionTypes';
 //import ClientProxy from "../proxys/ClientProxy";
 
 export default class IntakeSurveyAction {
 
-  static saveIntakeSurveyData(clientInfo) {
+  static saveIntakeSurveyData() {
 
     /*
     ClientProxy.login(userCredentials).then((result) => {

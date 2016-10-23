@@ -1,27 +1,20 @@
 import React from 'react';
 import InputLabel from "../common/InputLabel";
-import TextInput from "../common/TextInput";
 import {Row} from 'react-bootstrap';
+import Needs from "../../constants/Needs";
+import NeedButton from "./NeedButton";
 
 export default class IntakeSurveyNeedsForm extends React.Component {
 
   constructor(props) {
     super(props);
 
-    this.onFirstNameChanged = this.onFirstNameChanged.bind(this);
-    this.onMiddleNameChanged = this.onMiddleNameChanged.bind(this);
-    this.onLastNameChanged = this.onLastNameChanged.bind(this);
-    this.onSocialSecurityNumberChanged = this.onSocialSecurityNumberChanged.bind(this);
-    this.onDriversLicenseNumberChanged = this.onDriversLicenseNumberChanged.bind(this);
-    this.onDriversLicenseTerritoryChanged = this.onDriversLicenseTerritoryChanged.bind(this);
+    this.onNeedCategoryChanged = this.onNeedCategoryChanged.bind(this);
   }
 
   _changeClientNeedInfo(field, value) {
     let clone = JSON.parse(JSON.stringify(this.props.clientInfo));
-    if (!clone.needs) {
-      clone.needs = [];
-    }
-    if (value){
+    if (value) {
       clone.needs.push(field);
     }
     else {
@@ -40,10 +33,24 @@ export default class IntakeSurveyNeedsForm extends React.Component {
     return (
       <div>
         <Row>
-          <InputLabel value={"Service Needs:"} style={{minWidth:"212px"}}/>
+          <InputLabel value={"Service Needs:"} style={{minWidth: "212px"}}/>
         </Row>
         <Row>
-
+          {
+            Needs.map(need => {
+              const matchingNeeds = this.props.clientInfo.needs.filter(needProperty => {
+                return (need.key === needProperty);
+              });
+              const currentValue = (matchingNeeds.length !== 0);
+              return (
+                <NeedButton key={need.key}
+                            onNeedCategoryChanged={this.onNeedCategoryChanged}
+                            value={currentValue}
+                            needCategory={need.key}
+                            title={need.name}/>
+              );
+            })
+          }
         </Row>
       </div>
     );

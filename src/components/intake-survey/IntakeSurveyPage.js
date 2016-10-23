@@ -4,6 +4,7 @@ import IntakeSurveyNameForm from './IntakeSurveyNameForm';
 import IntakeSurveyAction from "../../actions/IntakeSurveyAction";
 import IntakeSurveyContactInfoForm from "./IntakeSurveyContactInfoForm";
 import IntakeSurveyDemographicsForm from "./IntakeSurveyDemographicsForm";
+import IntakeSurveyNeedsForm from "./IntakeSurveyNeedsForm";
 
 export default class IntakeSurveyPage extends React.Component {
 
@@ -11,7 +12,9 @@ export default class IntakeSurveyPage extends React.Component {
     super(props);
     this.state = {
       selectedKey: this.tabKeys.NAME,
-      clientInfo: {}
+      clientInfo: {
+        needs: []
+      }
     };
     this.onSelectionChanged = this.onSelectionChanged.bind(this);
     this.goToNextTab = this.goToNextTab.bind(this);
@@ -87,7 +90,7 @@ export default class IntakeSurveyPage extends React.Component {
                   <IntakeSurveyDemographicsForm clientInfo={this.state.clientInfo} goToNextTab={this.goToNextTab} onClientInfoChange={this.onClientInfoChange} />
                 </Tab.Pane>
                 <Tab.Pane eventKey={this.tabKeys.NEEDS}>
-                  Tab 1 content
+                  <IntakeSurveyNeedsForm clientInfo={this.state.clientInfo} goToNextTab={this.goToNextTab} onClientInfoChange={this.onClientInfoChange} />
                 </Tab.Pane>
                 <Tab.Pane eventKey={this.tabKeys.SUBMIT}>
                   Tab 2 content

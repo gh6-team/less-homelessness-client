@@ -8,7 +8,6 @@ class ClientProxy {
     this.clientURI = "/client";
   }
 
-
   _handleJSONResponse(request) {
     if (request.status === 200 || request.status === 304) {
       return JSON.parse(request.responseText);

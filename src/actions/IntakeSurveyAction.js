@@ -5,7 +5,6 @@
 export default class IntakeSurveyAction {
 
   static saveIntakeSurveyData() {
-
     /*
     ClientProxy.login(userCredentials).then((result) => {
       LHDispatcher.dispatch({

@@ -27,6 +27,12 @@ class ClientProxy {
       .then(this._handleJSONResponse);
   }
 
+  getClientSpdat(clientId) {
+    let request = WebProxy.buildGetRequest(this.clientURI + "/" + clientId + "/spdat");
+    return WebProxy.send(request)
+      .then(this._handleJSONResponse);
+  }
+
   getClients() {
     let request = WebProxy.buildGetRequest(this.clientURI);
     return WebProxy.send(request)

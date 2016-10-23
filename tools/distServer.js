@@ -11,7 +11,7 @@ import proxyMiddleware from 'http-proxy-middleware';
 console.log(chalkProcessing('Opening production build...'));
 
 const apiProxy = proxyMiddleware('/api', {
-  target: 'http://localhost:8080',
+  target: 'http://107.170.13.129:8080',
   changeOrigin: true,
   logLevel: 'debug',
   secure: false

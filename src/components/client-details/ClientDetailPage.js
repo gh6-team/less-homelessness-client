@@ -25,7 +25,7 @@ export default class ClientDetailPage extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.clientId == null) {
-      this.setState({client: null});
+      this.setState({client: null, spdat: NaN});
     }
     else if (this.props.clientId !== nextProps.clientId) {
       ClientAction.fetchClientById(nextProps.clientId);
@@ -60,12 +60,12 @@ export default class ClientDetailPage extends React.Component {
     return (
       <div>
         <h1>Client Details</h1>
-        <Row>
+        <Row style={{fontSize:"1.35em", paddingTop:"5px"}}>
           <Col xs={6} sm={3} style={{textAlign: "right"}}>First Name</Col>
           <Col xs={6} sm={3}
                style={{fontWeight: "bold"}}>{(this.state.client) ? this.state.client.first_name : null}</Col>
         </Row>
-        <Row>
+        <Row style={{fontSize:"1.35em", paddingTop:"5px", paddingBottom:"5px"}}>
           <Col xs={6} md={3} style={{textAlign: "right"}}>Last Name</Col>
           <Col xs={6} md={3}
                style={{fontWeight: "bold"}}>{(this.state.client) ? this.state.client.last_name : null}</Col>
@@ -85,7 +85,7 @@ export default class ClientDetailPage extends React.Component {
                         (currentDetails[0] === "id") ?
                           <div style={{padding:"5px"}}>{currentDetails[1]}</div>
                           :
-                          <TextInput value={currentDetails[1].toString()} style={{padding:"5px"}} />
+                          <TextInput value={currentDetails[1]} style={{padding:"5px"}} />
                       }
 
                     </td>
@@ -116,7 +116,8 @@ export default class ClientDetailPage extends React.Component {
 }
 
 ClientDetailPage.propTypes = {
-  clientId: React.PropTypes.number.isRequired
+  clientId: React.PropTypes.number.isRequired,
+  onClientDeselected: React.PropTypes.func
 };
 
 ClientDetailPage.DefaultProps = {};

@@ -25,6 +25,8 @@ export default class ShelterMapPage extends React.Component {
     ShelterStore.addChangeListener(this.handleShelterChange);
   }
 
+  shouldComponentUpdate = shouldPureComponentUpdate;
+
   componentWillUnmount() {
     ShelterStore.removeChangeListener(this.handleShelterChange);
   }
@@ -35,9 +37,7 @@ export default class ShelterMapPage extends React.Component {
 
   _onChildClick = (key, childProps) => {
     alert("This is shelter " + childProps.id);
-  }
-
-  shouldComponentUpdate = shouldPureComponentUpdate;
+  };
 
   renderChildren() {
     if (this.state.shelters == null) return;

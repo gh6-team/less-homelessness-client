@@ -39,13 +39,13 @@ export default class ClientAction {
   static fetchClientList() {
     ClientProxy.getClients().then((result) => {
       LHDispatcher.dispatch({
-        type: ActionTypes.CLIENT_REQUEST,
+        type: ActionTypes.ALL_CLIENTS_REQUEST,
         clients: result
       });
     }).catch((error) => {
       LHDispatcher.dispatch({
         type: ActionTypes.API_REQUEST_FAILED,
-        subType: ActionTypes.CLIENT_REQUEST,
+        subType: ActionTypes.ALL_CLIENTS_REQUEST,
         error: error
       });
     });

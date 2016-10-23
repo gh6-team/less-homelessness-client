@@ -9,6 +9,7 @@ class ShelterStore extends BasicFluxStore {
     this.state = {
       shelters: null,
       availableBeds: null,
+      beds: null,
       loading: false
     };
   }
@@ -24,6 +25,12 @@ class ShelterStore extends BasicFluxStore {
     this.emitChange();
   }
 
+  handleBedsLoaded(action) {
+    this.state.beds = action.beds;
+    this.state.loading = false;
+    this.emitChange();
+  }
+
 }
 
 ShelterStore.dispatchToken = LHDispatcher.register(action => {
@@ -32,6 +39,11 @@ ShelterStore.dispatchToken = LHDispatcher.register(action => {
 
     case ACTION_TYPES.SHELTER_REQUEST: {
       shelterStoreInstance.handleShelterLoaded(action);
+      break;
+    }
+
+    case ACTION_TYPES.BED_REQUEST: {
+      shelterStoreInstance.handleBedsLoaded(action);
       break;
     }
 

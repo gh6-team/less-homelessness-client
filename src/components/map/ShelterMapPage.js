@@ -21,6 +21,7 @@ export default class ShelterMapPage extends React.Component {
     super(props);
     this.state = {shelters: null};
     this.handleShelterChange = this.handleShelterChange.bind(this);
+    this.handleBedChange = this.handleBedChange.bind(this);
   }
 
   componentWillMount() {
@@ -29,20 +30,35 @@ export default class ShelterMapPage extends React.Component {
 
   componentDidMount() {
     ShelterStore.addChangeListener(this.handleShelterChange);
+    ShelterStore.addChangeListener(this.handleBedChange);
   }
 
   shouldComponentUpdate = shouldPureComponentUpdate;
 
   componentWillUnmount() {
     ShelterStore.removeChangeListener(this.handleShelterChange);
+    ShelterStore.removeChangeListener(this.handleBedChange);
   }
 
   handleShelterChange() {
     this.setState({shelters: ShelterStore.getState().shelters, availableBeds: ShelterStore.getState().availableBeds});
   }
 
+  handleBedChange() {
+    this.setState({beds: ShelterStore.getState().beds});
+    let count = 0;
+    for (let i = 0; i < this.state.beds.length; i++) {
+      const bed = this.state.beds[i];
+      if (bed.id == 0) {
+        count = count + 1;
+      }
+    }
+    alert(this.state.shelterName + " has " + count + " available beds");
+  }
+
   _onChildClick = (key, childProps) => {
-    alert("This is shelter " + childProps.id);
+    this.state.shelterName = childProps.name;
+    ShelterAction.fetchBedAssignments(childProps.id);
   };
 
   renderChildren() {

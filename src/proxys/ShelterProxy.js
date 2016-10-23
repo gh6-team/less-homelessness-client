@@ -24,7 +24,13 @@ class ShelterProxy {
     let request = WebProxy.buildGetRequest(this.shelterURI + "/");
     return WebProxy.send(request).then(this._handleJSONResponse);
   }
+
+  findShelterBedAssignments(shelterId) {
+    let request = WebProxy.buildGetRequest(this.shelterURI + "/" + shelterId + "/bed_assignments");
+    return WebProxy.send(request).then(this._handleJSONResponse);
+  }
+
 }
 
-const clientProxyInstance = new ShelterProxy();
-export default clientProxyInstance;
+const shelterProxyInstance = new ShelterProxy();
+export default shelterProxyInstance;

@@ -3,6 +3,8 @@ import {Router, Route, browserHistory} from 'react-router';
 
 import { Navbar, Nav, NavItem } from 'react-bootstrap';
 
+import "../../images/logo.png";
+
 import UserStore from '../stores/UserStore';
 
 import LoginAction from '../actions/LoginAction';
@@ -126,7 +128,7 @@ export default class Main extends React.Component {
         <Navbar staticTop fluid inverse>
           <Navbar.Header>
             <Navbar.Brand className="homeLogo" onClick={this.onHomeClicked}>
-              <img src="../styles/images/logo.png" width={50} height={50} alt="Less Homelessness" onClick={this.onHomeClicked}/>
+              <img src="./logo.png" width={50} height={50} alt="Less Homelessness" onClick={this.onHomeClicked}/>
             </Navbar.Brand>
             <Navbar.Toggle />
           </Navbar.Header>

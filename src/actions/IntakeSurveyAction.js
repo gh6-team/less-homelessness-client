@@ -1,21 +1,21 @@
 import LHDispatcher from '../dispatchers/LHDispatcher';
-import UserProxy from '../proxys/UserProxy';
 import ActionTypes from '../constants/actionTypes';
+//import ClientProxy from "../proxys/ClientProxy";
 
-export default class LoginAction {
+export default class IntakeSurveyAction {
 
-  static performLogin(userCredentials) {
+  static saveIntakeSurveyData(clientInfo) {
     LHDispatcher.dispatch({
-      type: ActionTypes.LOGIN_REQUEST_PENDING,
-      userCredentials: userCredentials
+      type: ActionTypes.INTAKE_SURVEY_SAVE_PENDING,
+      clientInfo: clientInfo
     });
-
-    UserProxy.login(userCredentials).then((result) => {
+    /*
+    ClientProxy.login(userCredentials).then((result) => {
       LHDispatcher.dispatch({
         type: ActionTypes.LOGIN_REQUEST,
         username: result.name,
         userRole: result.roleName,
-        organizationName: result.organizationName
+        userOrganization: result.organization
       });
     }).catch((error) => {
       LHDispatcher.dispatch({
@@ -24,12 +24,7 @@ export default class LoginAction {
         error: error
       });
     });
-  }
-
-  static performLogout() {
-    LHDispatcher.dispatch({
-      type: ActionTypes.LOGOUT
-    });
+    */
   }
 
 }

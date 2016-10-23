@@ -1,20 +1,27 @@
 import React from 'react';
 import {Tab, Row, Col, Nav, NavItem} from 'react-bootstrap';
+import IntakeSurveyNameForm from './IntakeSurveyNameForm';
+import IntakeSurveyAction from "../../actions/IntakeSurveyAction";
+import IntakeSurveyContactInfoForm from "./IntakeSurveyContactInfoForm";
+import IntakeSurveyDemographicsForm from "./IntakeSurveyDemographicsForm";
 
 export default class IntakeSurveyPage extends React.Component {
 
   constructor(props) {
     super(props);
     this.state = {
-      selectedKey: this.tabKeys.NAME
+      selectedKey: this.tabKeys.NAME,
+      clientInfo: {}
     };
     this.onSelectionChanged = this.onSelectionChanged.bind(this);
+    this.goToNextTab = this.goToNextTab.bind(this);
+    this.onClientInfoChange = this.onClientInfoChange.bind(this);
   }
 
   tabKeys = {
     NAME: "NAME",
     CONTACT_INFO: "CONTACT_INFO",
-    GENDER: "GENDER",
+    DEMOGRAPHICS: "DEMOGRAPHICS",
     NEEDS: "NEEDS",
     SUBMIT: "SUBMIT"
   };
@@ -25,6 +32,22 @@ export default class IntakeSurveyPage extends React.Component {
     });
   }
 
+  onClientInfoChange(clientInfo) {
+    this.setState({
+      clientInfo
+    });
+  }
+
+  goToNextTab() {
+    this.setState({
+      selectedKey: this.state.selectedKey + 1
+    });
+  }
+
+  onSubmitClient() {
+    IntakeSurveyAction.saveIntakeSurveyData(this.state.clientInfo);
+  }
+
   render() {
     return (
       <div>
@@ -33,16 +56,16 @@ export default class IntakeSurveyPage extends React.Component {
         </Row>
         <Tab.Container activeKey={this.state.selectedKey} id="intake-survey" onSelect={this.onSelectionChanged}>
           <Row className="clearfix">
-            <Col sm={4}>
+            <Col xs={3} lg={2} style={{borderRight: "1px grey solid",paddingRight:"0"}}>
               <Nav bsStyle="pills" stacked>
                 <NavItem eventKey={this.tabKeys.NAME}>
-                  Name
+                  Name & Identification
                 </NavItem>
                 <NavItem eventKey={this.tabKeys.CONTACT_INFO}>
                   Contact Info
                 </NavItem>
-                <NavItem eventKey={this.tabKeys.GENDER}>
-                  Gender
+                <NavItem eventKey={this.tabKeys.DEMOGRAPHICS}>
+                  Demographic Info
                 </NavItem>
                 <NavItem eventKey={this.tabKeys.NEEDS}>
                   Needs
@@ -52,16 +75,16 @@ export default class IntakeSurveyPage extends React.Component {
                 </NavItem>
               </Nav>
             </Col>
-            <Col sm={8}>
+            <Col xs={9} lg={10}>
               <Tab.Content animation>
                 <Tab.Pane eventKey={this.tabKeys.NAME}>
-                  Tab 1 content
+                 <IntakeSurveyNameForm clientInfo={this.state.clientInfo} goToNextTab={this.goToNextTab} onClientInfoChange={this.onClientInfoChange} />
                 </Tab.Pane>
                 <Tab.Pane eventKey={this.tabKeys.CONTACT_INFO}>
-                  Tab 1 content
+                  <IntakeSurveyContactInfoForm clientInfo={this.state.clientInfo} goToNextTab={this.goToNextTab} onClientInfoChange={this.onClientInfoChange} />
                 </Tab.Pane>
-                <Tab.Pane eventKey={this.tabKeys.GENDER}>
-                  Tab 2 content
+                <Tab.Pane eventKey={this.tabKeys.DEMOGRAPHICS}>
+                  <IntakeSurveyDemographicsForm clientInfo={this.state.clientInfo} goToNextTab={this.goToNextTab} onClientInfoChange={this.onClientInfoChange} />
                 </Tab.Pane>
                 <Tab.Pane eventKey={this.tabKeys.NEEDS}>
                   Tab 1 content

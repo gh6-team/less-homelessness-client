@@ -1,20 +1,12 @@
 import React from 'react';
 import {Row, Col, Button, ButtonGroup} from "react-bootstrap";
-import {browserHistory} from "react-router";
 import DropdownList from "react-widgets/lib/DropdownList";
+import ClientDetailPage from "./client-details/ClientDetailPage";
 
 export default class CareWorkerHomePage extends React.Component {
 
   constructor(props) {
     super(props);
-  }
-
-  onLoginClicked() {
-    browserHistory.push("/login");
-  }
-
-  onIntakeClicked() {
-    browserHistory.push("/intake");
   }
 
   buttons = [
@@ -36,11 +28,14 @@ export default class CareWorkerHomePage extends React.Component {
         <Row>
           <Col sm={3} xsHidden >
             <ButtonGroup vertical>
-              <Button onClick={this.onIntakeClicked}>SPDAT</Button>
-              <Button onClick={this.onIntakeClicked}>Review Intake</Button>
-              <Button onClick={this.onIntakeClicked}>Client Search</Button>
-              <Button onClick={this.onIntakeClicked}>Find a Shelter Bed</Button>
+              <Button onClick={() => {}}>SPDAT</Button>
+              <Button onClick={() => {}}>Review Intake</Button>
+              <Button onClick={() => {}}>Client Search</Button>
+              <Button onClick={() => {}}>Find a Shelter Bed</Button>
             </ButtonGroup>
+          </Col>
+          <Col sm={9} xsHidden>
+            <ClientDetailPage clientId={90077}/>
           </Col>
           <Col xs={2} smHidden mdHidden lgHidden>
             <DropdownList style={style}

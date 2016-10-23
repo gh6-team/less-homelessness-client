@@ -1,5 +1,5 @@
 const USER_ROLES = {
-  CLIENT: "Client",
+  CLIENT: "User",
   WORKER: "Worker"
 };
 

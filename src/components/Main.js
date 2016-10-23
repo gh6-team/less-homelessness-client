@@ -3,26 +3,35 @@ import {Router, Route, browserHistory} from 'react-router';
 
 import { Navbar, Nav, NavItem } from 'react-bootstrap';
 
+import "../../images/logo.png";
+
 import UserStore from '../stores/UserStore';
+
+import LoginAction from '../actions/LoginAction';
 
 import HomePage from './HomePage';
 import LoginPage from './LoginPage';
 import NotFoundPage from './NotFoundPage';
-import ShelterMapPage from './ShelterMapPage';
+import ShelterMapPage from './map/ShelterMapPage';
 import IntakeSurveyPage from './intake-survey/IntakeSurveyPage';
 import CareWorkerHomePage from './CareWorkerHomePage.js';
+
+import UserRoles from '../constants/userRoles';
 
 export default class Main extends React.Component {
 
   constructor(props) {
     super(props);
     this.state = {
-      username: null
+      username: null,
+      userRole: null
     };
 
     this._onUserStoreChanged = this._onUserStoreChanged.bind(this);
     this.onMapClicked = this.onMapClicked.bind(this);
     this.onHomeClicked = this.onHomeClicked.bind(this);
+    this._routeLoggedUser = this._routeLoggeduser.bind(this);
+    this.onLogoutClicked = this.onLogoutClicked.bind(this);
   }
 
   componentDidMount() {
@@ -34,9 +43,40 @@ export default class Main extends React.Component {
   }
 
   _onUserStoreChanged() {
-    this.setState({
-      username: UserStore.getState().username
-    });
+    const userStoreState = UserStore.getState();
+    const newUserLogged = (userStoreState && userStoreState.username && (userStoreState.username !== this.state.username));
+    if (newUserLogged) {
+      this.setState({
+        username: userStoreState.username,
+        userRole: userStoreState.userRole
+      }, this._routeLoggedUser);
+      return;
+    }
+
+    const userLoggedOut = (userStoreState && this.state.username && (!userStoreState.username));
+    if (userLoggedOut) {
+      this.setState({
+        username: null,
+        userRole: null
+      }, this._routeLoggedUser);
+    }
+  }
+
+  onLogoutClicked() {
+    LoginAction.performLogout();
+  }
+
+  _routeLoggeduser() {
+    if (this.state.username) {
+      if (this.state.userRole === UserRoles.CLIENT) {
+        browserHistory.push("/map");
+      } else if (this.state.userRole === UserRoles.WORKER) {
+        browserHistory.push("/care");
+      }
+      return;
+    }
+
+    browserHistory.push("/");
   }
 
   _getInitializedRouter() {
@@ -87,13 +127,17 @@ export default class Main extends React.Component {
       <div style={{height: "100%", width: "100%", backgroundColor: "#dad8d8"}}>
         <Navbar staticTop fluid inverse>
           <Navbar.Header>
-            <Navbar.Brand onClick={this.onHomeClicked}>-HL</Navbar.Brand>
+            <Navbar.Brand className="homeLogo" onClick={this.onHomeClicked}>
+              <img src="./logo.png" width={50} height={50} alt="Less Homelessness" onClick={this.onHomeClicked}/>
+            </Navbar.Brand>
             <Navbar.Toggle />
           </Navbar.Header>
           <Navbar.Collapse className="bs-navbar-collapse">
           {
             (this.state.username) ?
-              <span>{this.state.username}</span>
+              <Nav pullRight>
+                <div className="navbar-text">Logged in as {this.state.username}</div> <NavItem onClick={this.onLogoutClicked}>Logout</NavItem>
+              </Nav>
               :
               <LoginPage />
           }

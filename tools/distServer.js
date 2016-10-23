@@ -4,10 +4,18 @@
 import browserSync from 'browser-sync';
 import historyApiFallback from 'connect-history-api-fallback';
 import {chalkProcessing} from './chalkConfig';
+import proxyMiddleware from 'http-proxy-middleware';
 
 /* eslint-disable no-console */
 
 console.log(chalkProcessing('Opening production build...'));
+
+const apiProxy = proxyMiddleware('/api', {
+  target: 'http://localhost:8080',
+  changeOrigin: true,
+  logLevel: 'debug',
+  secure: false
+});
 
 // Run Browsersync
 browserSync({
@@ -18,10 +26,9 @@ browserSync({
   server: {
     baseDir: 'dist'
   },
-
+  ghostMode: false,
   files: [
     'src/*.html'
   ],
-
-  middleware: [historyApiFallback()]
+  middleware: [apiProxy, historyApiFallback()]
 });

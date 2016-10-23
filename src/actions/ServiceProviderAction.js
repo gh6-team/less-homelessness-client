@@ -23,7 +23,6 @@ export default class ServiceProviderAction {
   static saveServiceData(service) {
 
     let {...serviceData} = service;
-    debugger;
     ServiceProxy.postService(serviceData).then((response) => {
       LHDispatcher.dispatch({
         type: ActionTypes.SERVICE_POSTED,

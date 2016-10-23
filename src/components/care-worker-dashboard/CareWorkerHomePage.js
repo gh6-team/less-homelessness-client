@@ -76,7 +76,7 @@ export default class IntakeSurveyPage extends React.Component {
                 <NavItem eventKey={this.tabKeys.SPDAT}>
                   SPDAT
                 </NavItem>
-                <NavItem eventKey={this.tabKeys.SPDAT_REVIEW}>
+                <NavItem disabled eventKey={this.tabKeys.SPDAT_REVIEW}>
                   SPDAT Review
                 </NavItem>
                 <NavItem eventKey={this.tabKeys.MANAGE_SERVICES}>

@@ -24,6 +24,11 @@ class ServiceProxy {
     let request = WebProxy.buildGetRequest(this.serviceURI);
     return WebProxy.send(request).then(this._handleJSONResponse);
   }
+
+  postService(service) {
+    let request = WebProxy.buildPostRequest(this.serviceURI+"/"+service.id);
+    return WebProxy.send(request, JSON.stringify(service)).then(this._handleJSONResponse);
+  }
 }
 
 const serviceProxyInstance = new ServiceProxy();

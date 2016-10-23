@@ -6,7 +6,7 @@ export default class ServicesTable extends React.Component {
 
   static propTypes = {
     organizationNeeds: React.PropTypes.array,
-    selectedItem: React.PropTypes.object
+    onSelect: React.PropTypes.func
   };
 
   constructor(props) {
@@ -19,7 +19,7 @@ export default class ServicesTable extends React.Component {
         <h1>Services</h1>
         <Row>
           <Col xs={11}>
-            <Table bordered hover>
+            <Table striped bordered hover>
               <thead>
               <tr>
                 <th>Services</th>
@@ -33,7 +33,7 @@ export default class ServicesTable extends React.Component {
                   return (
                     <tr key={need.id}>
                       <td>{need.service}</td>
-                      <td><ButtonGroup><Button bsStyle="primary" onClick={this.props.selectedItem.bind(this,need)}>Manage</Button><Button
+                      <td><ButtonGroup><Button bsStyle="primary" onClick={this.props.onSelect.bind(this,need)}>Manage</Button><Button
                         bsStyle="primary">Assign</Button></ButtonGroup></td>
                     </tr>
                   );

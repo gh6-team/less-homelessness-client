@@ -1,8 +1,8 @@
 class WebProxy {
 
   constructor() {
-    // this.baseURL = "/api";
-    this.baseURL = "http://localhost:8080/api";
+     this.baseURL = "/api";
+    //this.baseURL = "http://localhost:8080/api";
   }
 
   static formatParams(params) {

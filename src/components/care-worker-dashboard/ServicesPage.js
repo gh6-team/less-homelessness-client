@@ -18,6 +18,7 @@ export default class ServicesPage extends React.Component {
     this.handleServiceStoreChange = this.handleServiceStoreChange.bind(this);
     this.onSelectionChanged = this.onSelectionChanged.bind(this);
     this.onServiceAvailableChanged = this.onServiceAvailableChanged.bind(this);
+    this.onSaveDetail = this.onSaveDetail.bind(this);
   }
 
   componentWillMount() {
@@ -51,8 +52,13 @@ export default class ServicesPage extends React.Component {
     });
   }
 
-  handleServiceStoreChange() {
+  onSaveDetail(service) {
     debugger;
+    ServicesAction.saveServiceData(service);
+    this.onSelectionChanged(service);
+  }
+
+  handleServiceStoreChange() {
     console.log(ServicesStore.getState());
     this.setState({
       allNeeds: ServicesStore.getState().services.services,
@@ -62,15 +68,14 @@ export default class ServicesPage extends React.Component {
   }
 
   render() {
-    console.log(this.state.type);
     if (this.state.type == 0) {
       return (
-        <ServicesTable organizationNeeds={this.state.allNeeds} selectedItem={this.onSelectionChanged}/>
+        <ServicesTable organizationNeeds={this.state.allNeeds} onSelect={this.onSelectionChanged}/>
       );
     } else {
       return (
-        <ServiceDetail need={this.state.selectedService} selectedItem={this.onSelectionChanged}
-                       onServiceAvailableChange={this.onServiceAvailableChanged}/>
+        <ServiceDetail need={this.state.selectedService} onSelectionChanged={this.onSelectionChanged}
+                       onServiceAvailableChange={this.onServiceAvailableChanged} onSave={this.onSaveDetail}/>
       );
     }
   }

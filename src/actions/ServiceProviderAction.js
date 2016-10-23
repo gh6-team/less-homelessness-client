@@ -20,5 +20,21 @@ export default class ServiceProviderAction {
     });
   }
 
+  static saveServiceData(service) {
 
+    let {...serviceData} = service;
+    debugger;
+    ServiceProxy.postService(serviceData).then((response) => {
+      LHDispatcher.dispatch({
+        type: ActionTypes.SERVICE_POSTED,
+        serviceId: response.id
+      });
+    }).catch((error) => {
+      LHDispatcher.dispatch({
+        type: ActionTypes.API_REQUEST_FAILED,
+        subType: ActionTypes.SERVICE_POSTED,
+        error: error
+      });
+    });
+  }
 }

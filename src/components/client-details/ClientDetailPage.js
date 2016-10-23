@@ -1,19 +1,22 @@
 import React from 'react';
-import {Row, Col, Table} from "react-bootstrap";
+import {Row, Col, Table, Well} from "react-bootstrap";
 import ClientStore from "../../stores/ClientStore";
 import ClientAction from "../../actions/ClientAction";
+import TextInput from "../common/TextInput";
 
 export default class ClientDetailPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      client: null
+      client: null,
+      spdat: NaN
     };
     this.handleClientChange = this.handleClientChange.bind(this);
   }
 
   componentWillMount() {
     ClientAction.fetchClientById(this.props.clientId);
+    ClientAction.fetchClientSpdatById(this.props.clientId);
   }
 
   componentDidMount() {
@@ -22,10 +25,11 @@ export default class ClientDetailPage extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.clientId == null) {
-      this.setState({client:null});
+      this.setState({client: null});
     }
     else if (this.props.clientId !== nextProps.clientId) {
       ClientAction.fetchClientById(nextProps.clientId);
+      ClientAction.fetchClientSpdatById(this.props.clientId);
     }
   }
 
@@ -34,29 +38,78 @@ export default class ClientDetailPage extends React.Component {
   }
 
   handleClientChange() {
-    console.log("handling client change", ClientStore.getState().client);
-    this.setState({client:ClientStore.getState().client});
+    this.setState({
+      client: ClientStore.getState().client,
+      spdat: ClientStore.getState().spdat
+    });
   }
 
   render() {
+
+    let clientDetails = [];
+    if (this.state.client) {
+      for (let clientProperty in this.state.client) {
+        let readableProperty = clientProperty.split("_").join(" ");
+        let detailsProperty = this.state.client[clientProperty];
+        if ((typeof detailsProperty === "string" || typeof  detailsProperty === "number" || typeof detailsProperty === "boolean")) {
+          clientDetails.push([readableProperty, detailsProperty.toString()]);
+        }
+      }
+    }
+
     return (
       <div>
         <h1>Client Details</h1>
         <Row>
-          <Col xs={6} md={3}>First Name</Col>
-          <Col xs={6} md={3}>{(this.state.client) ? this.state.client.first_name : null}</Col>
-          <Col xs={6} md={3}>Last Name</Col>
-          <Col xs={6} md={3}>TEST</Col>
+          <Col xs={6} sm={3} style={{textAlign: "right"}}>First Name</Col>
+          <Col xs={6} sm={3}
+               style={{fontWeight: "bold"}}>{(this.state.client) ? this.state.client.first_name : null}</Col>
         </Row>
-        <Table striped bordered condensed hover>
-          <tbody>
-          <tr>
-            <td>First Name</td>
-            <td>{(this.state.client) ? this.state.client.first_name : null}</td>
-          </tr>
+        <Row>
+          <Col xs={6} md={3} style={{textAlign: "right"}}>Last Name</Col>
+          <Col xs={6} md={3}
+               style={{fontWeight: "bold"}}>{(this.state.client) ? this.state.client.last_name : null}</Col>
+        </Row>
+        <Row style={{paddingTop:"5px"}}>
+          <Col xs={12} sm={6}>
+            <Table striped bordered condensed hover style={{border: "1px solid #5a6f96", boxShadow:"2px 2px 8px rgba(0,0,0,0.25)"}}>
+              <tbody>
+              {
+                clientDetails.map((currentDetails) => {
+                  return (<tr key={currentDetails[0]}>
+                    <td style={{width: "50%", textAlign: "right", padding:"5px", textTransform:"capitalize"}}>
+                      <div style={{padding:"5px"}}>{currentDetails[0]}</div>
+                    </td>
+                    <td style={{width: "50%",  padding:"5px"}}>
+                      {
+                        (currentDetails[0] === "id") ?
+                          <div style={{padding:"5px"}}>{currentDetails[1]}</div>
+                          :
+                          <TextInput value={currentDetails[1].toString()} style={{padding:"5px"}} />
+                      }
 
-          </tbody>
-        </Table>
+                    </td>
+                  </tr>);
+                })
+              }
+              </tbody>
+            </Table>
+          </Col>
+          <Col xs={5} sm={3}>
+            {
+              (this.state.spdat >= 0) ?
+                <Well style={{textAlign:"center", textShadow:"1px 1px 1px rgba(0,0,0,0.5)", boxShadow:"2px 2px 8px rgba(0,0,0,0.25)", color:"white", backgroundColor:"forestgreen"}}>
+                  <h3>SPDAT</h3><br/>
+                  <div style={{fontSize:"2.5em", fontWeight:"bold", paddingBottom:"5px"}}>
+                    {this.state.spdat}
+                  </div>
+                </Well>
+                :
+                null
+            }
+            </Col>
+        </Row>
+
       </div>
     );
   }
@@ -66,6 +119,4 @@ ClientDetailPage.propTypes = {
   clientId: React.PropTypes.number.isRequired
 };
 
-ClientDetailPage.DefaultProps = {
-
-};
+ClientDetailPage.DefaultProps = {};

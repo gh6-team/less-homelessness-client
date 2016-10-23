@@ -1,8 +1,8 @@
 import React from 'react';
 import {Tab, Row, Col, Nav, NavItem} from 'react-bootstrap';
-import {Router, Route, browserHistory} from 'react-router';
-import ClientList from '../client-details/ClientListPage';
-import ShelterMap from "../map/ShelterMapPage";
+import {browserHistory} from 'react-router';
+// import ClientList from '../client-details/ClientListPage';
+import ClientDetails from '../client-details/ClientDetailPage';
 import IntakeSurvey from "../intake-survey/IntakeSurveyPage";
 import Services from "./ServicesPage";
 
@@ -30,7 +30,6 @@ export default class IntakeSurveyPage extends React.Component {
     this.setState({
       selectedKey
     });
-    console.log(selectedKey);
     switch (selectedKey) {
       case "FIND_A_BED":
         browserHistory.push("/map");
@@ -47,7 +46,7 @@ export default class IntakeSurveyPage extends React.Component {
         </Row>
         <Tab.Container activeKey={this.state.selectedKey} id="care-worker-dashboard" onSelect={this.onSelectionChanged}>
           <Row className="clearfix">
-            <Col xs={3} lg={2} style={{borderRight: "1px grey solid"}}>
+            <Col xs={3} lg={2} style={{borderRight: "1px grey solid", paddingRight:"0"}}>
               <Nav bsStyle="pills" stacked>
                 <NavItem eventKey={this.tabKeys.CLIENT_SEARCH}>
                   Client Search
@@ -72,18 +71,18 @@ export default class IntakeSurveyPage extends React.Component {
             <Col xs={9} lg={10}>
               <Tab.Content animation>
                 <Tab.Pane eventKey={this.tabKeys.CLIENT_SEARCH}>
-                  <ClientList/>
+                  <ClientDetails clientId={90077}/>
                 </Tab.Pane>
                 <Tab.Pane eventKey={this.tabKeys.BASIC_INTAKE}>
-                  <IntakeSurvey/>
+                  <div style={{paddingTop:"20px"}}>
+                    <IntakeSurvey/>
+                  </div>
                 </Tab.Pane>
                 <Tab.Pane eventKey={this.tabKeys.SPDAT}>
                   Tab 1 content
                 </Tab.Pane>
                 <Tab.Pane eventKey={this.tabKeys.SPDAT_REVIEW}>
                   Tab 2 content
-                </Tab.Pane>
-                <Tab.Pane eventKey={this.tabKeys.FIND_A_BED}>
                 </Tab.Pane>
                 <Tab.Pane eventKey={this.tabKeys.MANAGE_SERVICES}>
                   <Services/>

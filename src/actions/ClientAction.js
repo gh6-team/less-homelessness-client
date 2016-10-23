@@ -20,6 +20,22 @@ export default class ClientAction {
 
   }
 
+  static fetchClientSpdatById(clientId) {
+    ClientProxy.getClientSpdat(clientId).then((result) => {
+      LHDispatcher.dispatch({
+        type: ActionTypes.CLIENT_SPDAT_REQUEST,
+        spdat: result
+      });
+    }).catch((error) => {
+      LHDispatcher.dispatch({
+        type: ActionTypes.API_REQUEST_FAILED,
+        subType: ActionTypes.CLIENT_SPDAT_REQUEST,
+        error: error
+      });
+    });
+
+  }
+
   static fetchClientList() {
     ClientProxy.getClients().then((result) => {
       LHDispatcher.dispatch({

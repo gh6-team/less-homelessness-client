@@ -8,6 +8,7 @@ class ClientStore extends BasicFluxStore {
     super();
     this.state = {
       client: null,
+      spdat: NaN,
       loading: false
     };
   }
@@ -17,10 +18,16 @@ class ClientStore extends BasicFluxStore {
   }
 
   handleClientLoaded(action) {
-  this.state.client = action.client;
-  this.state.loading = false;
-  this.emitChange();
-}
+    this.state.client = action.client;
+    this.state.loading = false;
+    this.emitChange();
+  }
+
+  handleSpdatLoaded(action) {
+    this.state.spdat = action.spdat;
+    this.state.loading = false;
+    this.emitChange();
+  }
 
 }
 
@@ -31,6 +38,11 @@ ClientStore.dispatchToken = LHDispatcher.register(action => {
 
     case ACTION_TYPES.CLIENT_REQUEST: {
       clientStoreInstance.handleClientLoaded(action);
+      break;
+    }
+
+    case ACTION_TYPES.CLIENT_SPDAT_REQUEST: {
+      clientStoreInstance.handleSpdatLoaded(action);
       break;
     }
 

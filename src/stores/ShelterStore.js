@@ -8,6 +8,7 @@ class ShelterStore extends BasicFluxStore {
     super();
     this.state = {
       shelters: null,
+      availableBeds: null,
       loading: false
     };
   }
@@ -17,17 +18,18 @@ class ShelterStore extends BasicFluxStore {
   }
 
   handleShelterLoaded(action) {
-  this.state.shelters = action.shelters;
-  this.state.loading = false;
-  this.emitChange();
-}
+    this.state.shelters = action.shelters;
+    this.state.availableBeds = action.availableBeds;
+    this.state.loading = false;
+    this.emitChange();
+  }
 
 }
 
 ShelterStore.dispatchToken = LHDispatcher.register(action => {
   "use strict";
   console.log(action);
-  switch(action.type) {
+  switch (action.type) {
 
     case ACTION_TYPES.SHELTER_REQUEST: {
       shelterStoreInstance.handleShelterLoaded(action);

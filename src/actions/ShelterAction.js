@@ -12,7 +12,8 @@ export default class ShelterAction {
     ShelterProxy.getAllShelters().then((result) => {
       LHDispatcher.dispatch({
         type: ActionTypes.SHELTER_REQUEST,
-        shelters: result.shelters
+        shelters: result.shelters,
+        availableBeds: result.availableBeds
       });
     }).catch((error) => {
       LHDispatcher.dispatch({

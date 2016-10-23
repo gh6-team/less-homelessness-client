@@ -14,6 +14,7 @@ export default class LoginPage extends React.Component {
      };
      this.onUserIdChanged = this.onUserIdChanged.bind(this);
      this.onPasswordChanged = this.onPasswordChanged.bind(this);
+     this.onPasswordKeyPress = this.onPasswordKeyPress.bind(this);
      this.close = this.close.bind(this);
      this.open = this.open.bind(this);
      this.onLoginSubmitClick = this.onLoginSubmitClick.bind(this);
@@ -44,8 +45,14 @@ export default class LoginPage extends React.Component {
       userId: this.state.userId,
       password: this.state.password
     };
-    this.setState({ showModal: false });
     LoginAction.performLogin(userCredentials);
+  }
+
+  onPasswordKeyPress(event) {
+    const ENTER_KEY = 13;
+    if (event.charCode === ENTER_KEY && this.state.userId && this.state.password) {
+      this.onLoginSubmitClick();
+    }
   }
 
    render() {
@@ -69,20 +76,20 @@ export default class LoginPage extends React.Component {
                </Row>
 
                <Row style={loginRowStyle}>
-                 <Col xs={6}>
-                   Username:
+                 <Col xs={3} style={{textAlign:"right", padding:"5px"}}>
+                   Username
                  </Col>
-                 <Col xs={6}>
+                 <Col xs={9}>
                    <TextInput type="text" value={this.state.userId} onChange={this.onUserIdChanged}/>
                  </Col>
                </Row>
 
                <Row style={loginRowStyle}>
-                 <Col xs={6}>
+                 <Col xs={3} style={{textAlign:"right", padding:"5px"}}>
                    Password
                  </Col>
-                 <Col xs={6}>
-                   <TextInput type="password" value={this.state.password} onChange={this.onPasswordChanged}/>
+                 <Col xs={9}>
+                   <TextInput type="password" value={this.state.password} onChange={this.onPasswordChanged} onKeyPress={this.onPasswordKeyPress}/>
                  </Col>
                </Row>
              </Col>
@@ -90,7 +97,7 @@ export default class LoginPage extends React.Component {
          </Modal.Body>
          <Modal.Footer>
            <Button onClick={this.close}>Close</Button>
-           <Button bsStyle="success" onClick={this.onLoginSubmitClick}>Login</Button>
+           <Button bsStyle="success" disabled={!(this.state.userId && this.state.password)} onClick={this.onLoginSubmitClick}>Login</Button>
          </Modal.Footer>
        </Modal>
      </div>);

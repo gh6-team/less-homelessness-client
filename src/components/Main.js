@@ -5,6 +5,8 @@ import { Navbar, Nav, NavItem } from 'react-bootstrap';
 
 import UserStore from '../stores/UserStore';
 
+import LoginAction from '../actions/LoginAction';
+
 import HomePage from './HomePage';
 import LoginPage from './LoginPage';
 import NotFoundPage from './NotFoundPage';
@@ -27,6 +29,7 @@ export default class Main extends React.Component {
     this.onMapClicked = this.onMapClicked.bind(this);
     this.onHomeClicked = this.onHomeClicked.bind(this);
     this._routeLoggedUser = this._routeLoggeduser.bind(this);
+    this.onLogoutClicked = this.onLogoutClicked.bind(this);
   }
 
   componentDidMount() {
@@ -40,25 +43,37 @@ export default class Main extends React.Component {
   _onUserStoreChanged() {
     const userStoreState = UserStore.getState();
     const newUserLogged = (userStoreState && userStoreState.username && (userStoreState.username !== this.state.username));
-    if(newUserLogged) {
-    this.setState({
+    if (newUserLogged) {
+      this.setState({
         username: userStoreState.username,
         userRole: userStoreState.userRole
       }, this._routeLoggedUser);
+      return;
     }
 
+    const userLoggedOut = (userStoreState && this.state.username && (!userStoreState.username));
+    if (userLoggedOut) {
+      this.setState({
+        username: null,
+        userRole: null
+      }, this._routeLoggedUser);
+    }
+  }
+
+  onLogoutClicked() {
+    LoginAction.performLogout();
   }
 
   _routeLoggeduser() {
-    if(this.state.username) {
-      if(this.state.userRole === UserRoles.CLIENT) {
+    if (this.state.username) {
+      if (this.state.userRole === UserRoles.CLIENT) {
         browserHistory.push("/map");
-      } else if(this.state.userRole === UserRoles.WORKER) {
+      } else if (this.state.userRole === UserRoles.WORKER) {
         browserHistory.push("/care");
       }
-      return;
+    } else {
+      browserHistory.push("/");
     }
-    browserHistory.push("/");
   }
 
   _getInitializedRouter() {

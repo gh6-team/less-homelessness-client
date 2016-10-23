@@ -73,7 +73,7 @@ export default class IntakeSurveyPage extends React.Component {
                 <NavItem eventKey={this.tabKeys.BASIC_INTAKE}>
                   Basic Intake
                 </NavItem>
-                <NavItem eventKey={this.tabKeys.SPDAT}>
+                <NavItem disabled eventKey={this.tabKeys.SPDAT}>
                   SPDAT
                 </NavItem>
                 <NavItem disabled eventKey={this.tabKeys.SPDAT_REVIEW}>
@@ -99,10 +99,8 @@ export default class IntakeSurveyPage extends React.Component {
                   <IntakeSurvey/>
                 </Tab.Pane>
                 <Tab.Pane eventKey={this.tabKeys.SPDAT}>
-                  Tab 1 content
                 </Tab.Pane>
                 <Tab.Pane eventKey={this.tabKeys.SPDAT_REVIEW}>
-                  Tab 2 content
                 </Tab.Pane>
                 <Tab.Pane eventKey={this.tabKeys.MANAGE_SERVICES}>
                   <ServicesPage />

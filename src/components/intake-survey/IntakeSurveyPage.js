@@ -2,6 +2,8 @@ import React from 'react';
 import {Tab, Row, Col, Nav, NavItem} from 'react-bootstrap';
 import IntakeSurveyNameForm from './IntakeSurveyNameForm';
 import IntakeSurveyAction from "../../actions/IntakeSurveyAction";
+import IntakeSurveyContactInfoForm from "./IntakeSurveyContactInfoForm";
+import IntakeSurveyDemographicsForm from "./IntakeSurveyDemographicsForm";
 
 export default class IntakeSurveyPage extends React.Component {
 
@@ -19,7 +21,7 @@ export default class IntakeSurveyPage extends React.Component {
   tabKeys = {
     NAME: "NAME",
     CONTACT_INFO: "CONTACT_INFO",
-    GENDER: "GENDER",
+    DEMOGRAPHICS: "DEMOGRAPHICS",
     NEEDS: "NEEDS",
     SUBMIT: "SUBMIT"
   };
@@ -54,16 +56,16 @@ export default class IntakeSurveyPage extends React.Component {
         </Row>
         <Tab.Container activeKey={this.state.selectedKey} id="intake-survey" onSelect={this.onSelectionChanged}>
           <Row className="clearfix">
-            <Col xs={3} lg={2} style={{borderRight: "1px grey solid"}}>
+            <Col xs={3} lg={2} style={{borderRight: "1px grey solid",paddingRight:"0"}}>
               <Nav bsStyle="pills" stacked>
                 <NavItem eventKey={this.tabKeys.NAME}>
-                  Name
+                  Name & Identification
                 </NavItem>
                 <NavItem eventKey={this.tabKeys.CONTACT_INFO}>
                   Contact Info
                 </NavItem>
-                <NavItem eventKey={this.tabKeys.GENDER}>
-                  Gender
+                <NavItem eventKey={this.tabKeys.DEMOGRAPHICS}>
+                  Demographic Info
                 </NavItem>
                 <NavItem eventKey={this.tabKeys.NEEDS}>
                   Needs
@@ -76,13 +78,13 @@ export default class IntakeSurveyPage extends React.Component {
             <Col xs={9} lg={10}>
               <Tab.Content animation>
                 <Tab.Pane eventKey={this.tabKeys.NAME}>
-                 <IntakeSurveyNameForm clientInfo={this.state.clientInfo} goToNextTab={this.goToNextTab} onClientInfoChanged={this.onClientInfoChange}/>
+                 <IntakeSurveyNameForm clientInfo={this.state.clientInfo} goToNextTab={this.goToNextTab} onClientInfoChange={this.onClientInfoChange} />
                 </Tab.Pane>
                 <Tab.Pane eventKey={this.tabKeys.CONTACT_INFO}>
-                  Tab 1 content
+                  <IntakeSurveyContactInfoForm clientInfo={this.state.clientInfo} goToNextTab={this.goToNextTab} onClientInfoChange={this.onClientInfoChange} />
                 </Tab.Pane>
-                <Tab.Pane eventKey={this.tabKeys.GENDER}>
-                  Tab 2 content
+                <Tab.Pane eventKey={this.tabKeys.DEMOGRAPHICS}>
+                  <IntakeSurveyDemographicsForm clientInfo={this.state.clientInfo} goToNextTab={this.goToNextTab} onClientInfoChange={this.onClientInfoChange} />
                 </Tab.Pane>
                 <Tab.Pane eventKey={this.tabKeys.NEEDS}>
                   Tab 1 content

@@ -11,6 +11,9 @@ export default class IntakeSurveyNameForm extends React.Component {
     this.onFirstNameChanged = this.onFirstNameChanged.bind(this);
     this.onMiddleNameChanged = this.onMiddleNameChanged.bind(this);
     this.onLastNameChanged = this.onLastNameChanged.bind(this);
+    this.onSocialSecurityNumberChanged = this.onSocialSecurityNumberChanged.bind(this);
+    this.onDriversLicenseNumberChanged = this.onDriversLicenseNumberChanged.bind(this);
+    this.onDriversLicenseTerritoryChanged = this.onDriversLicenseTerritoryChanged.bind(this);
   }
 
   _changeClientInfo(field, value) {
@@ -75,12 +78,11 @@ export default class IntakeSurveyNameForm extends React.Component {
       </div>
     );
   }
-
 }
 
-IntakeSurveyNameForm.PropTypes = {
+IntakeSurveyNameForm.propTypes = {
   clientInfo: React.PropTypes.object.isRequired,
-  goToNextTab: React.PropTypes.func.isRequired,
+  goToNextTab: React.PropTypes.func,
   onClientInfoChange: React.PropTypes.func.isRequired
 };
 

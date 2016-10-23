@@ -1,8 +1,10 @@
 import React from 'react';
 import {Tab, Row, Col, Nav, NavItem} from 'react-bootstrap';
+import {Router, Route, browserHistory} from 'react-router';
 import ClientList from '../client-details/ClientListPage';
 import ShelterMap from "../map/ShelterMapPage";
 import IntakeSurvey from "../intake-survey/IntakeSurveyPage";
+import Services from "./ServicesPage";
 
 export default class IntakeSurveyPage extends React.Component {
 
@@ -20,13 +22,21 @@ export default class IntakeSurveyPage extends React.Component {
     BASIC_INTAKE:"BASIC_INTAKE",
     SPDAT: "SPDAT",
     SPDAT_REVIEW: "SPDAT_REVIEW",
-    FIND_A_BED: "FIND_A_BED"
+    FIND_A_BED: "FIND_A_BED",
+    MANAGE_SERVICES: "MANAGE_SERVICES"
   };
 
   onSelectionChanged(selectedKey) {
     this.setState({
       selectedKey
     });
+    console.log(selectedKey);
+    switch (selectedKey) {
+      case "FIND_A_BED":
+        browserHistory.push("/map");
+            break;
+
+    }
   }
 
   render() {
@@ -54,6 +64,9 @@ export default class IntakeSurveyPage extends React.Component {
                 <NavItem eventKey={this.tabKeys.FIND_A_BED}>
                   Shelters Map
                 </NavItem>
+                <NavItem eventKey={this.tabKeys.MANAGE_SERVICES}>
+                  Manage Services
+                </NavItem>
               </Nav>
             </Col>
             <Col xs={9} lg={10}>
@@ -71,7 +84,9 @@ export default class IntakeSurveyPage extends React.Component {
                   Tab 2 content
                 </Tab.Pane>
                 <Tab.Pane eventKey={this.tabKeys.FIND_A_BED}>
-                  <ShelterMap/>
+                </Tab.Pane>
+                <Tab.Pane eventKey={this.tabKeys.MANAGE_SERVICES}>
+                  <Services/>
                 </Tab.Pane>
               </Tab.Content>
             </Col>

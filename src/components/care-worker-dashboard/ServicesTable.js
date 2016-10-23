@@ -34,7 +34,7 @@ export default class ServicesTable extends React.Component {
                     <tr key={need.id}>
                       <td>{need.service}</td>
                       <td><ButtonGroup><Button bsStyle="primary" onClick={this.props.onSelect.bind(this,need)}>Manage</Button><Button
-                        bsStyle="primary">Assign</Button></ButtonGroup></td>
+                        bsStyle="primary" disabled>Assign</Button></ButtonGroup></td>
                     </tr>
                   );
                 }) : null

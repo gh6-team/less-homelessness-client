@@ -26,4 +26,10 @@ export default class LoginAction {
     });
   }
 
+  static performLogout() {
+    LHDispatcher.dispatch({
+      type: ActionTypes.LOGOUT
+    });
+  }
+
 }

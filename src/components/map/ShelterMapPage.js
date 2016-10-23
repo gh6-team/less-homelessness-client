@@ -20,7 +20,7 @@ export default class ShelterMapPage extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = {shelters:null};
+    this.state = {shelters: null};
     this.handleShelterChange = this.handleShelterChange.bind(this);
   }
 
@@ -37,18 +37,23 @@ export default class ShelterMapPage extends React.Component {
   }
 
   handleShelterChange() {
-    this.setState({shelters:ShelterStore.getState().shelters});
+    this.setState({shelters: ShelterStore.getState().shelters, availableBeds: ShelterStore.getState().availableBeds});
   }
 
   shouldComponentUpdate = shouldPureComponentUpdate;
 
   renderChildren() {
     if (this.state.shelters == null) return;
-    const shelters = this.state.shelters;
-    return shelters.map(shelter => {
+
+    const rows = [];
+    for (var i = 0; i < this.state.shelters.length; i++) {
+      const shelter = this.state.shelters[i];
+      const count = this.state.availableBeds[i];
       const {id, location, ...other} = shelter;
-        return (<MyGreatPlace key={id} id={id} text="3" lat={location.latitude} lng={location.longitude} {...other} />);
-      });
+      rows.push(<MyGreatPlace key={id} id={id} text={count} lat={location.latitude} lng={location.longitude} {...other} />);
+    }
+
+    return rows;
   }
 
   render() {

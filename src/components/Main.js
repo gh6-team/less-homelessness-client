@@ -15,6 +15,7 @@ import NotFoundPage from './NotFoundPage';
 import ShelterMapPage from './map/ShelterMapPage';
 import IntakeSurveyPage from './intake-survey/IntakeSurveyPage';
 import CareWorkerHomePage from './care-worker-dashboard/CareWorkerHomePage.js';
+import Questionnaire from './intake-survey/Questionnaire';
 
 import UserRoles from '../constants/userRoles';
 
@@ -32,6 +33,7 @@ export default class Main extends React.Component {
     this.onHomeClicked = this.onHomeClicked.bind(this);
     this._routeLoggedUser = this._routeLoggeduser.bind(this);
     this.onLogoutClicked = this.onLogoutClicked.bind(this);
+    this.onQuestionnaireClicked = this.onQuestionnaireClicked.bind(this);
   }
 
   componentDidMount() {
@@ -102,6 +104,11 @@ export default class Main extends React.Component {
                  return (<CareWorkerHomePage/>);
                }}
         />
+        <Route path="/questionnaire"
+               component={() => {
+                 return (<Questionnaire />);
+               }}
+        />
         <Route path="*"
                component={() => {
                  return (<NotFoundPage/>);
@@ -121,6 +128,10 @@ export default class Main extends React.Component {
 
   onCareDashboardClicked() {
     browserHistory.push("/care");
+  }
+
+  onQuestionnaireClicked() {
+    browserHistory.push("/questionnaire");
   }
 
   render() {
@@ -147,6 +158,9 @@ export default class Main extends React.Component {
             }
             <Nav>
               <NavItem onClick={this.onMapClicked}>Map</NavItem>
+            </Nav>
+            <Nav>
+              <NavItem onClick={this.onQuestionnaireClicked}>Take Questionnaire</NavItem>
             </Nav>
           </Navbar.Collapse>
         </Navbar>

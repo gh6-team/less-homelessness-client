@@ -5,9 +5,6 @@ import ActionTypes from '../constants/actionTypes';
 export default class ShelterAction {
 
   static fetchAllShelters() {
-    LHDispatcher.dispatch({
-      type: ActionTypes.SHELTER_REQUEST_PENDING,
-    });
 
     ShelterProxy.getAllShelters().then((result) => {
       LHDispatcher.dispatch({

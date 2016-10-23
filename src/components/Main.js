@@ -1,7 +1,7 @@
 import React from 'react';
 import {Router, Route, browserHistory} from 'react-router';
 
-import { Navbar, Nav, NavItem } from 'react-bootstrap';
+import {Navbar, Nav, NavItem} from 'react-bootstrap';
 
 import "../../images/logo.png";
 
@@ -133,18 +133,18 @@ export default class Main extends React.Component {
             <Navbar.Toggle />
           </Navbar.Header>
           <Navbar.Collapse className="bs-navbar-collapse">
-          {
-            (this.state.username) ?
-              <Nav pullRight>
-                <div className="navbar-text">Logged in as {this.state.username}</div> <NavItem onClick={this.onLogoutClicked}>Logout</NavItem>
-              </Nav>
-              :
-              <LoginPage />
-          }
-          <Nav>
-            <NavItem onClick={this.onMapClicked}>Map</NavItem>
-          </Nav>
-            </Navbar.Collapse>
+            {
+              (this.state.username) ?
+                <Nav pullRight>
+                  <NavItem onClick={this.onLogoutClicked}>Logged in as {this.state.username} &ndash; Logout</NavItem>
+                </Nav>
+                :
+                <LoginPage />
+            }
+            <Nav>
+              <NavItem onClick={this.onMapClicked}>Map</NavItem>
+            </Nav>
+          </Navbar.Collapse>
         </Navbar>
         {this.router}
       </div>

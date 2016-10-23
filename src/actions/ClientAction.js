@@ -5,11 +5,6 @@ import ActionTypes from '../constants/actionTypes';
 export default class ClientAction {
 
   static fetchClientById(clientId) {
-    LHDispatcher.dispatch({
-      type: ActionTypes.CLIENT_REQUEST_PENDING,
-      clientId: clientId
-    });
-
     ClientProxy.getClient(clientId).then((result) => {
       LHDispatcher.dispatch({
         type: ActionTypes.CLIENT_REQUEST,
@@ -26,11 +21,6 @@ export default class ClientAction {
   }
 
   static postAnswers(client) {
-    LHDispatcher.dispatch({
-      type: ActionTypes.CLIENT_REQUEST_PENDING,
-      client: client
-    });
-
     ClientProxy.postAnswers(client).then(() => {
       LHDispatcher.dispatch({
         type: ActionTypes.CLIENT_REQUEST

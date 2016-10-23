@@ -15,14 +15,14 @@ export default class ClientListPage extends React.Component {
     ClientAction.fetchClientList();
   }
 
+  componentDidMount() {
+    ClientStore.addChangeListener(this.handleClientChange);
+  }
+
   componentWillReceiveProps(nextProps) {
     if (this.props.search !== nextProps.search) {
       ClientAction.fetchClientList();
     }
-  }
-
-  componentDidMount() {
-    ClientStore.addChangeListener(this.handleClientChange);
   }
 
   componentWillUnmount() {

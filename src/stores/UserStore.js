@@ -30,7 +30,6 @@ class UserStore extends BasicFluxStore {
 
 UserStore.dispatchToken = LHDispatcher.register(action => {
   "use strict";
-  console.log("Dispatching action:", action);
   switch(action.type) {
 
     case ACTION_TYPES.LOGIN_REQUEST: {

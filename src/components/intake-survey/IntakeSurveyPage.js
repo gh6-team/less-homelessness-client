@@ -54,7 +54,7 @@ export default class IntakeSurveyPage extends React.Component {
         </Row>
         <Tab.Container activeKey={this.state.selectedKey} id="intake-survey" onSelect={this.onSelectionChanged}>
           <Row className="clearfix">
-            <Col sm={4} lg={2} style={{borderRight: "1px grey solid"}}>
+            <Col xs={3} lg={2} style={{borderRight: "1px grey solid"}}>
               <Nav bsStyle="pills" stacked>
                 <NavItem eventKey={this.tabKeys.NAME}>
                   Name
@@ -73,7 +73,7 @@ export default class IntakeSurveyPage extends React.Component {
                 </NavItem>
               </Nav>
             </Col>
-            <Col sm={8} lg={10}>
+            <Col xs={9} lg={10}>
               <Tab.Content animation>
                 <Tab.Pane eventKey={this.tabKeys.NAME}>
                  <IntakeSurveyNameForm clientInfo={this.state.clientInfo} goToNextTab={this.goToNextTab} onClientInfoChanged={this.onClientInfoChange}/>

@@ -112,7 +112,7 @@ export default class Main extends React.Component {
   }
 
   onHomeClicked() {
-    browserHistory.push("/");
+    this._routeLoggedUser();
   }
 
   onMapClicked() {

@@ -21,10 +21,6 @@ export default class ClientAction {
   }
 
   static fetchClientList() {
-    LHDispatcher.dispatch({
-      type: ActionTypes.CLIENT_REQUEST_PENDING
-    });
-
     ClientProxy.getClients().then((result) => {
       LHDispatcher.dispatch({
         type: ActionTypes.CLIENT_REQUEST,

@@ -25,6 +25,26 @@ export default class ClientAction {
 
   }
 
+  static fetchClientList() {
+    LHDispatcher.dispatch({
+      type: ActionTypes.CLIENT_REQUEST_PENDING
+    });
+
+    ClientProxy.getClients().then((result) => {
+      LHDispatcher.dispatch({
+        type: ActionTypes.CLIENT_REQUEST,
+        clients: result
+      });
+    }).catch((error) => {
+      LHDispatcher.dispatch({
+        type: ActionTypes.API_REQUEST_FAILED,
+        subType: ActionTypes.CLIENT_REQUEST,
+        error: error
+      });
+    });
+
+  }
+
   static postAnswers(client) {
     LHDispatcher.dispatch({
       type: ActionTypes.CLIENT_REQUEST_PENDING,

@@ -12,7 +12,7 @@ import LoginPage from './LoginPage';
 import NotFoundPage from './NotFoundPage';
 import ShelterMapPage from './map/ShelterMapPage';
 import IntakeSurveyPage from './intake-survey/IntakeSurveyPage';
-import CareWorkerHomePage from './CareWorkerHomePage.js';
+import CareWorkerHomePage from './care-worker-dashboard/CareWorkerHomePage.js';
 
 import UserRoles from '../constants/userRoles';
 
@@ -96,7 +96,7 @@ export default class Main extends React.Component {
                }}
         />
         <Route path="/care"
-               componet={() => {
+               component={() => {
                  return (<CareWorkerHomePage/>);
                }}
         />
@@ -115,6 +115,10 @@ export default class Main extends React.Component {
 
   onMapClicked() {
     browserHistory.push("/map");
+  }
+
+  onCareDashboardClicked() {
+    browserHistory.push("/care");
   }
 
   render() {
@@ -142,6 +146,10 @@ export default class Main extends React.Component {
           <Nav>
             <NavItem onClick={this.onMapClicked}>Map</NavItem>
           </Nav>
+            {this.state.userRole === UserRoles.WORKER ?
+            <Nav>
+              <NavItem onClick={this.onCareDashboardClicked}>Dashboard</NavItem>
+            </Nav> : null}
             </Navbar.Collapse>
         </Navbar>
         {this.router}

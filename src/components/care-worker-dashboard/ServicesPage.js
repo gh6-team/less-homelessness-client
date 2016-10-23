@@ -1,59 +1,70 @@
 import React from 'react';
-import {Row, Col, Table, Button, ButtonGroup} from "react-bootstrap";
-import ShelterStore from "../../stores/ShelterStore";
-import ShelterAction from "../../actions/ShelterAction";
+import ServicesStore from "../../stores/ServiceStore";
+import ServicesAction from "../../actions/ServiceProviderAction";
 import NeedsCategories from "../../constants/Needs"
+import ServicesTable from "./ServicesTable";
+import ServiceDetail from "./ServiceDetail";
 
 export default class ServicesPage extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = {needs: NeedsCategories, shelter: null};
+    this.state = {
+      type: 0,
+      allNeeds: NeedsCategories,
+      organizationNeeds: null,
+    selectedService:null};
     this.handleShelterChange = this.handleShelterChange.bind(this);
+    this.onSelectionChanged = this.onSelectionChanged.bind(this);
+  }
+
+  onSelectionChanged(need) {
+
+    if (this.state.type === 0 ) {
+      this.setState({
+        type:1,
+        selectedService:need
+      });
+    } else {
+      this.setState({
+        type:0
+      });
+    }
+  }
+
+  onServiceAvailableChanged(need) {
+    this.setState({
+      need
+    });
   }
 
   componentWillMount() {
-    ShelterAction.fetchAllShelters();
+    ServicesAction.fetchAllServices();
   }
 
   componentDidMount() {
-    ShelterStore.addChangeListener(this.handleShelterChange);
+    ServicesStore.addChangeListener(this.handleShelterChange);
   }
 
   componentWillUnmount() {
-    ShelterStore.removeChangeListener(this.handleShelterChange);
+    ServicesStore.removeChangeListener(this.handleShelterChange);
   }
 
   handleShelterChange() {
-    this.setState({shelters: ShelterStore.getState().shelters, availableBeds: ShelterStore.getState().availableBeds});
+    this.setState({allNeeds: ServicesStore.getState().services});
   }
 
 
   render() {
-    return (
-      <Row>
-        <Col xs={11}>
-          <Table bordered hover>
-            <thead>
-            <tr>
-              <td>Services</td>
-              <td>Actions</td>
-            </tr>
-            </thead>
-            <tbody>
-            {
-              this.state.needs.map(need => {
-                return (
-                 <tr key={need.key} needCategory={need.key}>
-                   <td>{need.name}</td>
-                   <td><ButtonGroup><Button bsStyle="primary">Manage</Button><Button bsStyle="primary">Assign</Button></ButtonGroup></td>
-                 </tr>
-                );
-              })
-            }
-            </tbody>
-          </Table>
-        </Col>
-      </Row>)
+    console.log(this.state.type);
+      if(this.state.type == 0) {
+        return(
+        <ServicesTable needs={this.state.allNeeds} selectedItem={this.onSelectionChanged}/>)
+      } else {
+        return(
+          <ServiceDetail need={this.state.selectedService} selectedItem={this.onSelectionChanged} onServiceAvailableChange={this.onServiceAvailableChanged}/>
+        )
+      }
+
   }
 }

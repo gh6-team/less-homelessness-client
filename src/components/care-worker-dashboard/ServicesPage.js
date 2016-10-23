@@ -53,7 +53,6 @@ export default class ServicesPage extends React.Component {
   }
 
   onSaveDetail(service) {
-    debugger;
     ServicesAction.saveServiceData(service);
     this.onSelectionChanged(service);
   }

@@ -21,15 +21,15 @@ export default class IntakeSurveyDemographicsForm extends React.Component {
   }
 
   onGenderChanged(value) {
-    this._changeClientInfo("contact_phone", value);
+    this._changeClientInfo("gender", value);
   }
 
   onVeteranStatusChanged(value) {
-    this._changeClientInfo("contact_email", value);
+    this._changeClientInfo("veteran", value);
   }
 
   onEthnicityChanged(value) {
-    this._changeClientInfo("english_proficiency", value);
+    this._changeClientInfo("ethnicity", value);
   }
 
   onDateOfBirthChanged(value) {

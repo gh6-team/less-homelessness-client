@@ -6,6 +6,7 @@ import IntakeSurveyContactInfoForm from "./IntakeSurveyContactInfoForm";
 import IntakeSurveyDemographicsForm from "./IntakeSurveyDemographicsForm";
 import IntakeSurveyNeedsForm from "./IntakeSurveyNeedsForm";
 import IntakeSurveySummary from "./IntakeSurveySummary";
+import { browserHistory } from "react-router";
 
 export default class IntakeSurveyPage extends React.Component {
 
@@ -51,6 +52,7 @@ export default class IntakeSurveyPage extends React.Component {
 
   onSubmitClient() {
     IntakeSurveyAction.saveIntakeSurveyData(this.state.clientInfo);
+    browserHistory.push("/");
   }
 
   render() {

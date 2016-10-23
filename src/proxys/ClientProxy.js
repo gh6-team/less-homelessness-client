@@ -8,7 +8,6 @@ class ClientProxy {
     this.clientURI = "/client";
   }
 
-
   _handleJSONResponse(request) {
     if (request.status === 200 || request.status === 304) {
       return JSON.parse(request.responseText);
@@ -37,6 +36,16 @@ class ClientProxy {
     let request = WebProxy.buildGetRequest(this.clientURI);
     return WebProxy.send(request)
       .then(this._handleJSONResponse);
+  }
+
+  postClient(clientInfo) {
+    let request = WebProxy.buildPostRequest(this.clientURI);
+    return WebProxy.send(request, JSON.stringify(clientInfo)).then(this._handleJSONResponse);
+  }
+
+  postClientNeed(clientId, need) {
+    let request = WebProxy.buildPostRequest(this.clientURI + "/" + clientId + "/needs");
+    return WebProxy.send(request, JSON.stringify(need));
   }
 
   postAnswers(client) {

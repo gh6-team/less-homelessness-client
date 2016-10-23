@@ -1,7 +1,9 @@
 import React from 'react';
 import {Router, Route, browserHistory} from 'react-router';
 
-import { Navbar, Nav, NavItem } from 'react-bootstrap';
+import {Navbar, Nav, NavItem} from 'react-bootstrap';
+
+import "../../images/logo.png";
 
 import UserStore from '../stores/UserStore';
 
@@ -110,7 +112,7 @@ export default class Main extends React.Component {
   }
 
   onHomeClicked() {
-    browserHistory.push("/");
+    this._routeLoggedUser();
   }
 
   onMapClicked() {
@@ -130,27 +132,23 @@ export default class Main extends React.Component {
         <Navbar staticTop fluid inverse>
           <Navbar.Header>
             <Navbar.Brand className="homeLogo" onClick={this.onHomeClicked}>
-              <img src="../styles/images/logo.png" width={50} height={50} alt="Less Homelessness" onClick={this.onHomeClicked}/>
+              <img src="./logo.png" width={50} height={50} alt="Less Homelessness" onClick={this.onHomeClicked}/>
             </Navbar.Brand>
             <Navbar.Toggle />
           </Navbar.Header>
           <Navbar.Collapse className="bs-navbar-collapse">
-          {
-            (this.state.username) ?
-              <Nav pullRight>
-                <div className="navbar-text">Logged in as {this.state.username}</div> <NavItem onClick={this.onLogoutClicked}>Logout</NavItem>
-              </Nav>
-              :
-              <LoginPage />
-          }
-          <Nav>
-            <NavItem onClick={this.onMapClicked}>Map</NavItem>
-          </Nav>
-            {this.state.userRole === UserRoles.WORKER ?
+            {
+              (this.state.username) ?
+                <Nav pullRight>
+                  <NavItem onClick={this.onLogoutClicked}>Logged in as {this.state.username} &ndash; Logout</NavItem>
+                </Nav>
+                :
+                <LoginPage />
+            }
             <Nav>
-              <NavItem onClick={this.onCareDashboardClicked}>Dashboard</NavItem>
-            </Nav> : null}
-            </Navbar.Collapse>
+              <NavItem onClick={this.onMapClicked}>Map</NavItem>
+            </Nav>
+          </Navbar.Collapse>
         </Navbar>
         {this.router}
       </div>

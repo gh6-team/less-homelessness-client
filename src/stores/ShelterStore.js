@@ -28,7 +28,6 @@ class ShelterStore extends BasicFluxStore {
 
 ShelterStore.dispatchToken = LHDispatcher.register(action => {
   "use strict";
-  console.log(action);
   switch (action.type) {
 
     case ACTION_TYPES.SHELTER_REQUEST: {

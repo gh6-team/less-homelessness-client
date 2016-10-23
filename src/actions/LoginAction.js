@@ -5,10 +5,6 @@ import ActionTypes from '../constants/actionTypes';
 export default class LoginAction {
 
   static performLogin(userCredentials) {
-    LHDispatcher.dispatch({
-      type: ActionTypes.LOGIN_REQUEST_PENDING,
-      userCredentials: userCredentials
-    });
 
     UserProxy.login(userCredentials).then((result) => {
       LHDispatcher.dispatch({

@@ -5,10 +5,7 @@ import ActionTypes from '../constants/actionTypes';
 export default class IntakeSurveyAction {
 
   static saveIntakeSurveyData(clientInfo) {
-    LHDispatcher.dispatch({
-      type: ActionTypes.INTAKE_SURVEY_SAVE_PENDING,
-      clientInfo: clientInfo
-    });
+
     /*
     ClientProxy.login(userCredentials).then((result) => {
       LHDispatcher.dispatch({

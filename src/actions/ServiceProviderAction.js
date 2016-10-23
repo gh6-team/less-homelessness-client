@@ -9,8 +9,7 @@ export default class ServiceProviderAction {
     ServiceProxy.getAllServices().then((result) => {
       LHDispatcher.dispatch({
         type: ActionTypes.SERVICE_REQUEST,
-        shelters: result.shelters,
-        availableBeds: result.availableBeds
+        services: result
       });
     }).catch((error) => {
       LHDispatcher.dispatch({

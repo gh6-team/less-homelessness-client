@@ -1,7 +1,7 @@
 import React from 'react';
 import ServicesStore from "../../stores/ServiceStore";
 import ServicesAction from "../../actions/ServiceProviderAction";
-import NeedsCategories from "../../constants/Needs";
+//import NeedsCategories from "../../constants/Needs"
 import ServicesTable from "./ServicesTable";
 import ServiceDetail from "./ServiceDetail";
 
@@ -11,11 +11,11 @@ export default class ServicesPage extends React.Component {
     super(props);
     this.state = {
       type: 0,
-      allNeeds: NeedsCategories,
+      allNeeds: null,
       organizationNeeds: null,
       selectedService: null
     };
-    this.handleShelterStoreChange = this.handleShelterStoreChange.bind(this);
+    this.handleServiceStoreChange = this.handleServiceStoreChange.bind(this);
     this.onSelectionChanged = this.onSelectionChanged.bind(this);
     this.onServiceAvailableChanged = this.onServiceAvailableChanged.bind(this);
   }
@@ -25,11 +25,11 @@ export default class ServicesPage extends React.Component {
   }
 
   componentDidMount() {
-    ServicesStore.addChangeListener(this.handleShelterStoreChange);
+    ServicesStore.addChangeListener(this.handleServiceStoreChange);
   }
 
   componentWillUnmount() {
-    ServicesStore.removeChangeListener(this.handleShelterStoreChange);
+    ServicesStore.removeChangeListener(this.handleServiceStoreChange);
   }
 
   onSelectionChanged(need) {
@@ -51,17 +51,21 @@ export default class ServicesPage extends React.Component {
     });
   }
 
-  handleShelterStoreChange() {
+  handleServiceStoreChange() {
+    debugger;
+    console.log(ServicesStore.getState());
     this.setState({
-      allNeeds: ServicesStore.getState().services
+      allNeeds: ServicesStore.getState().services.services,
+      organizationNeeds: ServicesStore.getState().services.services
     });
+    console.log(this.state);
   }
 
   render() {
     console.log(this.state.type);
     if (this.state.type == 0) {
       return (
-        <ServicesTable needs={this.state.allNeeds} selectedItem={this.onSelectionChanged}/>
+        <ServicesTable organizationNeeds={this.state.allNeeds} selectedItem={this.onSelectionChanged}/>
       );
     } else {
       return (
@@ -69,6 +73,5 @@ export default class ServicesPage extends React.Component {
                        onServiceAvailableChange={this.onServiceAvailableChanged}/>
       );
     }
-
   }
 }

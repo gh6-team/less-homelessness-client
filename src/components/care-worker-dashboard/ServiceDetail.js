@@ -1,8 +1,14 @@
 import React from 'react';
-import {Row, Col, InputLabel, Button, ButtonGroup, TextInput} from "react-bootstrap";
+import {Row, Col, Button, ButtonGroup} from "react-bootstrap";
 
 
 export default class ServiceDetail extends React.Component {
+
+  static propTypes = {
+    need: React.PropTypes.object,
+    selectedItem: React.PropTypes.object
+  };
+
   constructor(props) {
     super(props);
     console.log(props);
@@ -10,11 +16,10 @@ export default class ServiceDetail extends React.Component {
       need: this.props.need};
   }
 
-
   render() {
     return (
       <div>
-        <h1>{this.props.need.name}</h1>
+        <h1>{this.props.need.service}</h1>
         <Row>
           <Col xs={11}>
             <ButtonGroup>

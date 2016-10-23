@@ -8,7 +8,7 @@ class ServiceStore extends BasicFluxStore {
     super();
     this.state = {
       n: null,
-      availableBeds: null,
+      services: null,
       loading: false
     };
   }
@@ -18,8 +18,7 @@ class ServiceStore extends BasicFluxStore {
   }
 
   handleServiceLoaded(action) {
-    this.state.shelters = action.shelters;
-    this.state.availableBeds = action.availableBeds;
+    this.state.services = action;
     this.state.loading = false;
     this.emitChange();
   }
@@ -31,6 +30,7 @@ ServiceStore.dispatchToken = LHDispatcher.register(action => {
   switch (action.type) {
 
     case ACTION_TYPES.SERVICE_REQUEST: {
+      console.log(action);
       serviceStoreInstance.handleServiceLoaded(action);
       break;
     }

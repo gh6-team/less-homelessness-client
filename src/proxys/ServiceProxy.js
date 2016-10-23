@@ -21,7 +21,7 @@ class ServiceProxy {
   }
 
   getAllServices() {
-    let request = WebProxy.buildGetRequest(this.serviceURI + "/");
+    let request = WebProxy.buildGetRequest(this.serviceURI);
     return WebProxy.send(request).then(this._handleJSONResponse);
   }
 }

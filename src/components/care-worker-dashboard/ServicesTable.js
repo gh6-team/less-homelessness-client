@@ -1,13 +1,16 @@
 import React from 'react';
-import {Row, Col, Table, Button, ButtonGroup, Tab} from "react-bootstrap";
+import {Row, Col, Table, Button, ButtonGroup} from "react-bootstrap";
 
 
 export default class ServicesTable extends React.Component {
+
+  static propTypes = {
+    organizationNeeds: React.PropTypes.array,
+    selectedItem: React.PropTypes.object
+  };
+
   constructor(props) {
     super(props);
-    console.log(props);
-    this.state = {
-      organizationNeeds: this.props.needs};
   }
 
   render() {
@@ -25,15 +28,16 @@ export default class ServicesTable extends React.Component {
               </thead>
               <tbody>
               {
-                this.state.organizationNeeds.map(need => {
+                Array.isArray(this.props.organizationNeeds) ?
+                this.props.organizationNeeds.map(need => {
                   return (
-                    <tr key={need.key}>
-                      <td>{need.name}</td>
+                    <tr key={need.id}>
+                      <td>{need.service}</td>
                       <td><ButtonGroup><Button bsStyle="primary" onClick={this.props.selectedItem.bind(this,need)}>Manage</Button><Button
                         bsStyle="primary">Assign</Button></ButtonGroup></td>
                     </tr>
                   );
-                })
+                }) : null
               }
               </tbody>
             </Table>

@@ -12,6 +12,14 @@ export default class QuestionList extends React.Component {
     this.nextQuestion = this.nextQuestion.bind(this);
   }
 
+  componentWillReceiveProps(nextProps) {
+    if(!this.state.step) {
+      this.setState({
+        step: nextProps.children[0]
+      });
+    }
+  }
+
   nextQuestion() {
     this.setState({
       stepCount: this.state.stepCount + 1
@@ -25,11 +33,11 @@ export default class QuestionList extends React.Component {
   }
 
   render() {
-    this.state.step.setCallback(this.nextQuestion);
+    if(this.state.step && (typeof this.state.step.setCallback === "function")) {
+      this.state.step.setCallback(this.nextQuestion);
+    }
     return (
-      <div>
-        {this.state.step.render()}
-      </div>
+        (this.state.step) ? this.state.step : null
     );
   }
 }

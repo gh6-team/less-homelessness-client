@@ -3,37 +3,25 @@ import {Row, Col, Button} from 'react-bootstrap';
 import TextInput from '../common/TextInput';
 
 export default class QuestionItem extends React.Component {
+
+  static propTypes = {
+    data: React.PropTypes.object.isRequired
+  };
+
   constructor(props) {
     super(props);
+
     this.state = {
       callback: null,
       response: null,
-      prequestion: null,
-      question: null,
-      type: null,
-      options: []
+      options: this.props.data.options,
+      prequestion: (this.props.data.pre_q ? this.props.data.pre_q : null),
+      question: (this.props.data.question ? this.props.data.question : null),
+      type: (this.props.data.type ? this.props.data.type : null)
     };
-    this.setData = this.setData.bind(this);
     this.setCallback = this.setCallback.bind(this);
     this.updateResponse = this.updateResponse.bind(this);
 
-  }
-  setData(json) {
-    this.setState({
-      prequestion: (json.pre_q ? json.pre_q : null),
-      question: (json.question ? json.question : null),
-      type: (json.type ? json.type : null)
-    });
-
-    let arr = [];
-    if (json.options) {
-      json.options.forEach((val) => {
-        arr.push(val);
-      });
-      this.setState({
-        options: arr
-      });
-    }
   }
 
   setCallback(callback) {

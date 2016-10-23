@@ -50,14 +50,25 @@ export default class IntakeSurveyNameForm extends React.Component {
     return (
       <div>
         <Row>
-          <Col xsHidden sm={12}>
+          <Col xsHidden smHidden md={12}>
             <InputLabel value={"First Name:"} style={{minWidth: "212px"}}/>
             <InputLabel value={"Middle Name:"} style={{minWidth: "212px"}}/>
             <InputLabel value={"Last Name:"} style={{minWidth: "212px"}}/>
           </Col>
+          <Col xs={12} mdHidden lgHidden>
+            <InputLabel value={"First Name:"} style={{minWidth: "212px"}}/>
+            <TextInput style={{marginLeft: "12px", width: "200px"}} value={this.props.clientInfo.first_name}
+                       onChange={this.onFirstNameChanged}/>
+            <InputLabel value={"Middle Name:"} style={{minWidth: "212px"}}/>
+            <TextInput style={{marginLeft: "12px", width: "200px"}} value={this.props.clientInfo.middle_name}
+            onChange={this.onMiddleNameChanged}/>
+            <InputLabel value={"Last Name:"} style={{minWidth: "212px"}}/>
+            <TextInput style={{marginLeft: "12px", width: "200px"}} value={this.props.clientInfo.last_name}
+                       onChange={this.onLastNameChanged}/>
+          </Col>
         </Row>
         <Row>
-          <Col xsHidden sm={12}>
+          <Col xsHidden smHidden md={12}>
             <TextInput style={{marginLeft: "12px", width: "200px"}} value={this.props.clientInfo.first_name}
                        onChange={this.onFirstNameChanged}/>
             <TextInput style={{marginLeft: "12px", width: "200px"}} value={this.props.clientInfo.middle_name}
@@ -67,14 +78,26 @@ export default class IntakeSurveyNameForm extends React.Component {
           </Col>
         </Row>
         <Row>
-          <Col xsHidden sm={12}>
+          <Col xsHidden smHidden md={12}>
             <InputLabel value={"Social Security Number:"} style={{minWidth: "212px"}}/>
             <InputLabel value={"Driver's License Number:"} style={{minWidth: "212px"}}/>
             <InputLabel value={"Driver's License Territory:"} style={{minWidth: "212px"}}/>
           </Col>
+          <Col xs={12} mdHidden lgHidden>
+            <InputLabel value={"Social Security Number:"} style={{minWidth: "212px"}}/>
+            <TextInput style={{marginLeft: "12px", width: "200px"}} value={this.props.clientInfo.soc_sec_num}
+                       onChange={this.onSocialSecurityNumberChanged}/>
+            <InputLabel value={"Driver's License Number:"} style={{minWidth: "212px"}}/>
+            <TextInput style={{marginLeft: "12px", width: "200px"}} value={this.props.clientInfo.drivers_license_num}
+                       onChange={this.onDriversLicenseNumberChanged}/>
+            <InputLabel value={"Driver's License Territory:"} style={{minWidth: "212px"}}/>
+            <TextInput style={{marginLeft: "12px", width: "200px"}}
+                       value={this.props.clientInfo.drivers_license_territory}
+                       onChange={this.onDriversLicenseTerritoryChanged}/>
+            </Col>
         </Row>
         <Row>
-          <Col xsHidden sm={12}>
+          <Col xsHidden smHidden md={12}>
             <TextInput style={{marginLeft: "12px", width: "200px"}} value={this.props.clientInfo.soc_sec_num}
                        onChange={this.onSocialSecurityNumberChanged}/>
             <TextInput style={{marginLeft: "12px", width: "200px"}} value={this.props.clientInfo.drivers_license_num}

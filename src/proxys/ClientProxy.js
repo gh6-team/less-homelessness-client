@@ -5,7 +5,7 @@ import UnauthenticatedError from "../errors/UnauthenticatedError";
 class ClientProxy {
 
   constructor() {
-    this.shelterURI = "/client";
+    this.clientURI = "/client";
   }
 
 
@@ -22,8 +22,14 @@ class ClientProxy {
   }
 
   getClient(clientId) {
-    let request = WebProxy.buildGetRequest(this.shelterURI + "/" + clientId);
+    let request = WebProxy.buildGetRequest(this.clientURI + "/" + clientId);
     return WebProxy.send(request)
+      .then(this._handleJSONResponse);
+  }
+
+  postAnswers(client) {
+    let request = WebProxy.buildPostRequest(this.clientURI + "/saveAnswers");
+    return WebProxy.send(request, JSON.stringify(client))
       .then(this._handleJSONResponse);
   }
 }

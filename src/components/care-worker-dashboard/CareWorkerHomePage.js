@@ -3,7 +3,7 @@ import {Tab, Row, Col, Nav, NavItem} from 'react-bootstrap';
 import ClientList from '../client-details/ClientListPage';
 import ClientDetails from '../client-details/ClientDetailPage';
 import IntakeSurvey from "../intake-survey/IntakeSurveyPage";
-import Services from "./ServicesPage";
+import ServicesPage from "./ServicesPage";
 import {browserHistory} from "react-router";
 
 export default class IntakeSurveyPage extends React.Component {
@@ -105,7 +105,7 @@ export default class IntakeSurveyPage extends React.Component {
                   Tab 2 content
                 </Tab.Pane>
                 <Tab.Pane eventKey={this.tabKeys.MANAGE_SERVICES}>
-                  <Services/>
+                  <ServicesPage />
                 </Tab.Pane>
               </Tab.Content>
             </Col>

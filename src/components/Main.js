@@ -71,9 +71,10 @@ export default class Main extends React.Component {
       } else if (this.state.userRole === UserRoles.WORKER) {
         browserHistory.push("/care");
       }
-    } else {
-      browserHistory.push("/");
+      return;
     }
+
+    browserHistory.push("/");
   }
 
   _getInitializedRouter() {
@@ -124,7 +125,9 @@ export default class Main extends React.Component {
       <div style={{height: "100%", width: "100%", backgroundColor: "#dad8d8"}}>
         <Navbar staticTop fluid inverse>
           <Navbar.Header>
-            <Navbar.Brand onClick={this.onHomeClicked}>-HL</Navbar.Brand>
+            <Navbar.Brand className="homeLogo" onClick={this.onHomeClicked}>
+              <img src="../styles/images/logo.png" width={50} height={50} alt="Less Homelessness" onClick={this.onHomeClicked}/>
+            </Navbar.Brand>
             <Navbar.Toggle />
           </Navbar.Header>
           <Navbar.Collapse className="bs-navbar-collapse">

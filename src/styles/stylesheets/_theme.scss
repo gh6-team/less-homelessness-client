@@ -324,3 +324,11 @@ a.list-group-item {
 .popover {
   color: $text-color;
 }
+
+.nav-stacked li a {
+  border-radius:0;
+}
+
+.homeLogo {
+  cursor: pointer;
+}

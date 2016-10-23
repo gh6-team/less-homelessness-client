@@ -40,11 +40,11 @@ class ClientProxy {
 
   postClient(clientInfo) {
     let request = WebProxy.buildPostRequest(this.clientURI);
-    return WebProxy.send(request, JSON.stringify(clientInfo));
+    return WebProxy.send(request, JSON.stringify(clientInfo)).then(this._handleJSONResponse);
   }
 
-  postClientNeed(need) {
-    let request = WebProxy.buildPostRequest(this.clientURI + "/needs");
+  postClientNeed(clientId, need) {
+    let request = WebProxy.buildPostRequest(this.clientURI + "/" + clientId + "/needs");
     return WebProxy.send(request, JSON.stringify(need));
   }
 

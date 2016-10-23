@@ -4,6 +4,7 @@ import ClientList from '../client-details/ClientListPage';
 import ClientDetails from '../client-details/ClientDetailPage';
 import IntakeSurvey from "../intake-survey/IntakeSurveyPage";
 import Services from "./ServicesPage";
+import {browserHistory} from "react-router";
 
 export default class IntakeSurveyPage extends React.Component {
 
@@ -21,7 +22,7 @@ export default class IntakeSurveyPage extends React.Component {
 
   tabKeys = {
     CLIENT_SEARCH: "CLIENT_SEARCH",
-    BASIC_INTAKE:"BASIC_INTAKE",
+    BASIC_INTAKE: "BASIC_INTAKE",
     SPDAT: "SPDAT",
     SPDAT_REVIEW: "SPDAT_REVIEW",
     MANAGE_SERVICES: "MANAGE_SERVICES"
@@ -35,7 +36,7 @@ export default class IntakeSurveyPage extends React.Component {
     switch (selectedKey) {
       case "FIND_A_BED":
         browserHistory.push("/map");
-            break;
+        break;
       case "CLIENT_SEARCH":
         this.handleClientDeselected();
         break;
@@ -86,10 +87,10 @@ export default class IntakeSurveyPage extends React.Component {
             <Col xs={9} lg={10}>
               <Tab.Content animation>
                 <Tab.Pane eventKey={this.tabKeys.CLIENT_SEARCH}>
-                  <ClientList/>
                   {
                     (this.state.selectedClientId) ?
-                      <ClientDetails clientId={this.state.selectedClientId} onClientDeselected={this.handleClientDeselected} />
+                      <ClientDetails clientId={this.state.selectedClientId}
+                                     onClientDeselected={this.handleClientDeselected}/>
                       :
                       <ClientList onClientSelected={this.handleClientSelected}/>
                   }

@@ -1,7 +1,7 @@
 import React from 'react';
 import {Row, Col, Table} from "react-bootstrap";
-import ClientStore from "../stores/ClientStore";
-import ClientAction from "../actions/ClientAction";
+import ClientStore from "../../stores/ClientStore";
+import ClientAction from "../../actions/ClientAction";
 
 export default class ClientDetailPage extends React.Component {
   constructor(props) {
@@ -59,3 +59,11 @@ export default class ClientDetailPage extends React.Component {
     );
   }
 }
+
+ClientDetailPage.PropTypes = {
+
+};
+
+ClientDetailPage.DefaultProps = {
+
+};

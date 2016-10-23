@@ -62,6 +62,9 @@ export default class ShelterMapPage extends React.Component {
   render() {
     return (
       <GoogleMap
+        bootstrapURLKeys={{
+          key: "AIzaSyDx2p2PrYSPcNfInrKj8KfsEnVs-2TdLCk",
+        }}
         defaultCenter={this.props.center}
         defaultZoom={this.props.zoom}
         onChildClick={this._onChildClick}

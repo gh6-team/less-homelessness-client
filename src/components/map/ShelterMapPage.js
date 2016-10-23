@@ -1,10 +1,11 @@
-import React, {Component} from 'react';
+import React from 'react';
 import shouldPureComponentUpdate from 'react-pure-render/function';
-
+import ShelterStore from "../../stores/ShelterStore";
+import ShelterAction from "../../actions/ShelterAction";
 import GoogleMap from 'google-map-react';
 import MyGreatPlace from './my_great_place.js';
 
-export default class ShelterMapPage extends Component {
+export default class ShelterMapPage extends React.Component {
   static defaultProps = {
     center: {lat: 38.632746, lng: -90.227955},
     zoom: 10,
@@ -19,15 +20,34 @@ export default class ShelterMapPage extends Component {
 
   constructor(props) {
     super(props);
+    this.state = {shelters:null};
+    this.handleShelterChange = this.handleShelterChange.bind(this);
+  }
+
+  componentWillMount() {
+    ShelterAction.fetchAllShelters();
+  }
+
+  componentDidMount() {
+    ShelterStore.addChangeListener(this.handleShelterChange);
+  }
+
+  componentWillUnmount() {
+    ShelterStore.removeChangeListener(this.handleShelterChange);
+  }
+
+  handleShelterChange() {
+    this.setState({shelters:ShelterStore.getState().shelters});
   }
 
   shouldComponentUpdate = shouldPureComponentUpdate;
 
   renderChildren() {
-    return this.props.greatPlaces
-      .map(place => {
-        const {id, count, ...coords} = place;
-        return (<MyGreatPlace key={id} text={count} {...coords} />);
+    if (this.state.shelters == null) return;
+    const shelters = this.state.shelters;
+    return shelters.map(shelter => {
+      const {id, location, ...other} = shelter;
+        return (<MyGreatPlace key={id} id={id} text="3" lat={location.latitude} lng={location.longitude} {...other} />);
       });
   }
 

@@ -2,12 +2,11 @@ import WebProxy from "./WebProxy";
 
 import UnauthenticatedError from "../errors/UnauthenticatedError";
 
-class ClientProxy {
+class ShelterProxy {
 
   constructor() {
-    this.shelterURI = "/client";
+    this.shelterURI = "/shelters";
   }
-
 
   _handleJSONResponse(request) {
     if (request.status === 200 || request.status === 304) {
@@ -21,12 +20,11 @@ class ClientProxy {
     }
   }
 
-  getClient(clientId) {
-    let request = WebProxy.buildGetRequest(this.shelterURI + "/" + clientId);
-    return WebProxy.send(request)
-      .then(this._handleJSONResponse);
+  getAllShelters() {
+    let request = WebProxy.buildGetRequest(this.shelterURI + "/");
+    return WebProxy.send(request).then(this._handleJSONResponse);
   }
 }
 
-const clientProxyInstance = new ClientProxy();
+const clientProxyInstance = new ShelterProxy();
 export default clientProxyInstance;

@@ -1,6 +1,6 @@
 import LHDispatcher from '../dispatchers/LHDispatcher';
 import ActionTypes from '../constants/actionTypes';
-import ClientProxy from "../proxys/ClientProxy";
+//import ClientProxy from "../proxys/ClientProxy";
 
 export default class IntakeSurveyAction {
 

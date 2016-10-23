@@ -6,7 +6,9 @@ import ClientAction from "../../actions/ClientAction";
 export default class ClientDetailPage extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {client:null};
+    this.state = {
+      client: null
+    };
     this.handleClientChange = this.handleClientChange.bind(this);
   }
 
@@ -14,17 +16,17 @@ export default class ClientDetailPage extends React.Component {
     ClientAction.fetchClientById(this.props.clientId);
   }
 
+  componentDidMount() {
+    ClientStore.addChangeListener(this.handleClientChange);
+  }
+
   componentWillReceiveProps(nextProps) {
     if (nextProps.clientId == null) {
       this.setState({client:null});
     }
-    else if (this.props.client.id !== nextProps.clientId) {
+    else if (this.props.clientId !== nextProps.clientId) {
       ClientAction.fetchClientById(nextProps.clientId);
     }
-  }
-
-  componentDidMount() {
-    ClientStore.addChangeListener(this.handleClientChange);
   }
 
   componentWillUnmount() {
@@ -60,8 +62,8 @@ export default class ClientDetailPage extends React.Component {
   }
 }
 
-ClientDetailPage.PropTypes = {
-
+ClientDetailPage.propTypes = {
+  clientId: React.PropTypes.number.isRequired
 };
 
 ClientDetailPage.DefaultProps = {

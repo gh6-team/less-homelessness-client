@@ -31,7 +31,7 @@ export default class ClientAction {
       client: client
     });
 
-    ClientProxy.postAnswers(client).then((result) => {
+    ClientProxy.postAnswers(client).then(() => {
       LHDispatcher.dispatch({
         type: ActionTypes.CLIENT_REQUEST
       });

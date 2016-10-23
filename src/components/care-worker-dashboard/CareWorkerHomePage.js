@@ -23,7 +23,7 @@ export default class IntakeSurveyPage extends React.Component {
     CLIENT_SEARCH: "CLIENT_SEARCH",
     BASIC_INTAKE:"BASIC_INTAKE",
     SPDAT: "SPDAT",
-    SPDAT_REVIEW: "SPDAT_REVIEW"
+    SPDAT_REVIEW: "SPDAT_REVIEW",
     MANAGE_SERVICES: "MANAGE_SERVICES"
   };
 

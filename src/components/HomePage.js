@@ -32,11 +32,11 @@ export default class HomePage extends React.Component {
           <h4 style={{fontStyle:"italic", paddingBottom:"5px"}}>Empowering people to combat chronic homelessness</h4>
         </Row>
         <Panel style={{borderWidth:"2px", backgroundColor: "rgba(255, 255, 255, 0.87)", marginTop: "20px", marginLeft: "auto", marginRight: "auto", width: "50%"}}>
-          <div>Lets get started getting you help.</div>
-          <div>Please click below to answer some quick questions so we can find resources to help you.</div>
+          <div style={{textAlign:"center"}}>Lets get started getting you help.</div>
+          <div style={{textAlign:"center"}}>Please click below to answer some quick questions so we can find resources to help you.</div>
           <Row style={{textAlign:"center"}}>
             <Col xs={12}>
-              <Button style={{marginTop: "10px"}} bsStyle="success" onClick={this.onStartIntakeButtonClick}>Start</Button>
+              <Button id="startButton" style={{marginTop: "10px"}} bsStyle="success" onClick={this.onStartIntakeButtonClick}>Start</Button>
             </Col>
           </Row>
         </Panel>
